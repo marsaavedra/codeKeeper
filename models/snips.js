@@ -29,12 +29,12 @@ module.exports = function(sequelize, DataTypes) {
     },
 
     liked: {
-      type: DataTypes.INT,
+      type: DataTypes.INTEGER,
       allowNull: false,
     }
   });
 
-  Post.associate = function(models) {
+  Snips.associate = function(models) {
     Snips.belongsTo(models.Coder, {
       foreignKey: {
         allowNull: false
