@@ -1,0 +1,25 @@
+{
+  "name": "codekeeper",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/marsaavedra/codeKeeper.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/marsaavedra/codeKeeper/issues"
+  },
+  "homepage": "https://github.com/marsaavedra/codeKeeper#readme",
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "express": "^4.15.4",
+    "mysql2": "^1.4.1",
+    "sequelize": "^4.6.0"
+  }
+}
