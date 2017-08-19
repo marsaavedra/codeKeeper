@@ -1,9 +1,9 @@
 {
   "development": {
-    "username": "root",
-    "password": "root",
-    "database": "codeKeeper_db",
-    "host": "127.0.0.1",
+    "username": "ie6xcgmt897nc398",
+    "password": "cfz04qf33o1lce0x",
+    "database": "pktvbp2wsi05xjmq",
+    "host": "t89yihg12rw77y6f.cbetxkdyhwsb.us-east-1.rds.amazonaws.com",
     "dialect": "mysql"
   },
   "test": {
@@ -14,10 +14,7 @@
     "dialect": "mysql"
   },
   "production": {
-    "username": "root",
-    "password": "root",
-    "database": "database_production",
-    "host": "127.0.0.1",
+    "use_env_variable": "JAWSDB_URL",
     "dialect": "mysql"
   }
 }
