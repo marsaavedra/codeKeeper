@@ -14,15 +14,17 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.text());
 app.use(bodyParser.json({ type: "application/vnd.api+json" }));
 
+// Static directory
+app.use(express.static(__dirname + '/public'));
+
 // For Passport
 app.use(session({ secret: 'repeeKedoc',resave: true, saveUninitialized:true})); // session secret
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 
-app.use('/coder', require('./routes/coder-api-routes'));
 
 //require("./routes/html-routes.js")(app);
-// require("./routes/coder-api-routes.js")(app);
+require("./routes/coder-api-routes.js")(app);
 // require("./routes/snips-api-routes.js")(app);
 
 db.sequelize.sync({ /*force: true*/ }).then(function() {

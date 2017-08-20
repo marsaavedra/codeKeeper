@@ -1,18 +1,18 @@
 // Dependencies
-var express = require('express');
-var coder = require('../models/coder');
+var db = require("../models");
 
-//Create all our routes
-var router = express.Router();
+module.exports = function(app){
+	app.get('/coder', function(req, res){
+ 		res.send('coder page'); // testing
+ 	});
 
-router.post('/coder', function(req, res){
-	
-});
-
-router.get('/', function(req, res){
-	res.send('coder page');
-});
-
-
-// Export router
-module.exports = router;
+ 	app.post('/coder/add', function(req, res){
+ 		//var user: {
+ 		//	userName: req.body. 
+ 		//}
+ 		console.log(req.body.name);
+ 		console.log(req.body.email);
+ 		console.log(req.body.password);
+ 		res.send('ok'); // testing
+ 	});
+}
