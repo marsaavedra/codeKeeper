@@ -8,7 +8,7 @@ module.exports = function(sequelize, DataTypes) {
       }
     },
 
-    Snippet: {
+    snippet: {
       type: DataTypes.TEXT,
       allowNull: false,
     },
@@ -18,7 +18,7 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false,
     },
 
-    lanquage: {
+    language: {
       type: DataTypes.STRING,
       allowNull: false,
     },

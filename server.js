@@ -25,7 +25,7 @@ app.use(passport.session()); // persistent login sessions
 
 //require("./routes/html-routes.js")(app);
 require("./routes/coder-api-routes.js")(app);
-// require("./routes/snips-api-routes.js")(app);
+require("./routes/snips-api-routes.js")(app);
 
 db.sequelize.sync({ /*force: true*/ }).then(function() {
   app.listen(PORT, function() {
