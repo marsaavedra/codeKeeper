@@ -4,24 +4,30 @@
 	</head>
 
 	<body>
-		<form>
+		<form id="signupForm">
 			<label>Name</label>
 			<input type="text" name="name" id="name">
 			<br />
 			
 			<label>Email</label>
-			<input type="text" name="email" id="email">
+			<input type="email" name="email" id="email">
 			<br />
 
 			<label>Password</label>
-			<input type="text" name="password" id="password">
+			<input type="password" name="password" id="password">
 			<br />
 
 			<label>Confirm password</label>
-			<input type="text" name="name" id="name">
+			<input type="password" name="confirmPassword" id="confirmPassword">
 			<br />
 
 			<button type="submit">Submit</button>
 		</form>
 	</body>
+	<script
+  src="https://code.jquery.com/jquery-3.2.1.min.js"
+  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+  crossorigin="anonymous"></script>
+  <script type="text/javascript" src="js/jquery.validate.js"></script>
+  <script type="text/javascript" src="js/signup.js"></script>
 </html>
