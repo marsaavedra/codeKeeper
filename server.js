@@ -28,10 +28,10 @@ require("./routes/coder-api-routes.js")(app, passport);
 require("./routes/snips-api-routes.js")(app);
 
 //load passport strategies
-require("./config/passport/passport.js")(passport, db.Coder);
+require("./config/passport/passport.js")(passport, db.User);
 
 //Sync Database
-db.sequelize.sync({ /*force: true*/ }).then(function() {
+db.sequelize.sync({ /*force: true */}).then(function() {
   app.listen(PORT, function() {
     console.log("App listening on PORT" + PORT);
   });

@@ -3,6 +3,13 @@ var db = require("../models");
 var path = require("path");
 
 module.exports = function(app, passport){
+	app.get('/dash', function(req, res){
+		if(req.isAuthenticated()){
+ 			res.sendFile(path.join(__dirname, "../public/dash.html"));
+ 		} else {
+ 			res.sendFile(path.join(__dirname, "../public/signin.html"));	
+ 		}
+ 	});
 
 	app.get('/signup', function(req, res){
  		res.sendFile(path.join(__dirname, "../public/signup.html"));
@@ -13,26 +20,36 @@ module.exports = function(app, passport){
  	});
 
 	app.post("/signin", function(req, res, next){
-		console.log('in');
-
-		passport.authenticate("signin", function(err, coder, msg){
-			var data = {
-				error: err,
-				coder: coder,
-				msg: msg
+		passport.authenticate("signin", function(err, user, msg){
+			if(user){
+			 	req.logIn(user, function(){
+			 		return res.json(user);
+			 	});
 			}
-			return res.json(data);
+
+			 var data = {
+			 	error: err,
+			 	user: user,
+			 	msg: msg
+			 }
+
+			return res.json(data);	
 		})(req, res, next);
 	});
 
 	app.post("/signup", function(req, res, next){
-		passport.authenticate("signup", function(err, coder, msg){
+		passport.authenticate("signup", function(err, user, msg){
 			var data = {
 				error: err,
-				coder: coder,
+				user: user,
 				msg: msg
 			}
 			return res.json(data);
 		})(req, res, next);
 	});	
+
+	app.get('/logout', function(req, res) {
+  		req.logout();
+  		res.redirect('/');
+	});
 }

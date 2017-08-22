@@ -1,21 +1,22 @@
 var bCrypt = require('bcrypt');
 
-module.exports = function(passport, coder){
-	var Coder = coder;
+module.exports = function(passport, user){
+	var User = user;
+
 	var LocalStrategy = require('passport-local').Strategy;
 
 	//serialize
-	passport.serializeUser(function(coder, done){
-		done(null, coder.id);
+	passport.serializeUser(function(user, done){
+		done(null, user.id);
 	});
 
 	//deserialize user
 	passport.deserializeUser(function(id, done) {
-   	 	Coder.findById(id).then(function(coder) {
-	        if (coder) {
-	            done(null, coder.get());
+   	 	User.findById(id).then(function(user) {
+	        if (user) { 
+	            done(null, user.get());
 	        } else {
-	            done(coder.errors, null);
+	            done(user.errors, null);
 	        }
 	    });
 	});
@@ -32,27 +33,27 @@ module.exports = function(passport, coder){
 				return bCrypt.hashSync(password, bCrypt.genSaltSync(8), null);
 			};
 
-			Coder.findOne({
+			User.findOne({
 				where: {
 					email: email
 				}
-			}).then(function(coder){
-				if(coder){
+			}).then(function(user){
+				if(user){
 					return done(null, false, "That email is already taken."
 					);
 				} else {
-					var coderPassword = generateHash(password);
+					var userPassword = generateHash(password);
 					var data = {
 						email: email,
-						password: coderPassword,
+						password: userPassword,
 						name: req.body.name,
 					};
 					
-					Coder.create(data).then(function(newCoder, created){
-					 	if(!newCoder){
+					User.create(data).then(function(newUser, created){
+					 	if(!newUser){
 					 		return done(null, false, null);
 					 	} else {
-					 		return done(null, newCoder, null);
+					 		return done(null, newUser, null);
 					 	}
 				 	});
 				}
@@ -60,6 +61,7 @@ module.exports = function(passport, coder){
 		}
 	));
 
+	//Signin
 	passport.use('signin', new LocalStrategy(
 		{
 			usernameField: 'email',
@@ -68,30 +70,30 @@ module.exports = function(passport, coder){
 		},
 
 		function(req, email, password, done){
-			var Coder = coder;
+			var User = user;
 
-			var isValidPassword = function(coderpass, password){
-				return bCrypt.compareSync(password, coderpass);
+			var isValidPassword = function(userpass, password){
+				return bCrypt.compareSync(password, userpass);
 			}
 
-			Coder.findOne({
+			User.findOne({
 				where: {
 					email: email
 				}
-			}).then(function(coder){
-				if(!coder) {
+			}).then(function(user){
+
+				if(!user) {
 					return done(null, false, "Email does not exist.");
 				}
 
-				if(!isValidPassword(coder.password, password)){
-					return done(null, false, "Incorrest password");
+				if(!isValidPassword(user.password, password)){
+					return done(null, false, "Incorrect password.");
 				}
 
-				var coderinfo = coder.get();
-				return done(null, coderinfo);
-			}).catch(function(err){
-				return done(null, false, "Something went wrong.");
-			})
+				var userinfo = user.get();
+
+				return done(null, userinfo);
+			});
 		}
 
 	));
