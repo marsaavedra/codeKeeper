@@ -1,4 +1,6 @@
+// Dependencies
 var path = require("path");
+
 module.exports = function(app){
 	// Get routes for home
 	app.get('/', function(req, res){
