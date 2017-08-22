@@ -1,12 +1,13 @@
 $(document).ready(function(){
 	function submitUser(){
-		var newCoder = {
+
+		var newUser = {
 			name: $("#name").val().trim(),
 			email: $("#email").val().trim(),
 			password: $("#password").val().trim()
 		};
 
-		$.post("/signup", newCoder, function(res){
+		$.post("/signup", newUser, function(res){
 			if(res.error) throw error;
 
 			if(res.msg){
@@ -48,11 +49,11 @@ $(document).ready(function(){
 				minlength: "Your user name must be at least 6 characters long."
 			},
 			password: {
-				required: "Please provide a password.",
+				required: "Please provide your password.",
 				minlength: "Your password must be at least 6 characters long."
 			},
 			confirmPassword: {
-				required: "Please provide a password.",
+				required: "Please confirm your password.",
 				minlength: "Your password must be at least 6 characters long.",
 				equalTo: "Please enter the same password as above."
 			}

@@ -1,13 +1,13 @@
 $(document).ready(function(){
-	$("#submit").on("click", function(e){
-		e.preventDefault();
-
-		var data = {
+	function loginUser(){
+		
+		var user = {
 			email: $("#email").val().trim(),
 			password: $("#password").val().trim()
 		};
 
-		$.post("/signin", data, function(res){
+		$.post("/signin", user, function(res){
+			
 			if(res.error) throw error;
 
 			if(res.msg){
@@ -17,5 +17,28 @@ $(document).ready(function(){
 				window.location.href = "/dash";
 			}
 		});
+	}
+
+	$("#signinForm").validate({
+		submitHandler: function(form) {
+		    loginUser();
+		},
+		onkeyup: false,
+		rules: {
+			email: {
+				required: true
+			},
+			password: {
+				required: true
+			}
+		},
+		messages: {
+			email: {
+				required: "Please provide your email."
+			},
+			password: {
+				required: "Please provide your password."
+			},
+		}
 	});
 })

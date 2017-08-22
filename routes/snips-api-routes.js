@@ -10,7 +10,7 @@ module.exports = function(app) {
   // GET route for getting all of the snippets
   app.get("/api/snippets", function(req, res) {
     db.Snips.findAll({
-      include: [db.Coder]
+      include: [db.User]
     }).then(function(result) {
       res.json(result);
     });
@@ -23,7 +23,7 @@ module.exports = function(app) {
       where: {
         language: req.params.language
       },
-      include: [db.Coder]
+      include: [db.User]
     }).then(function(result) {
       res.json(result);
     });
