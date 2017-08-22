@@ -1,18 +1,25 @@
 // Dependencies
 var db = require("../models");
+var path = require("path");
 
-module.exports = function(app){
-	app.get('/coder', function(req, res){
- 		res.send('coder page'); // testing
+module.exports = function(app, passport){
+
+	app.get('/signup', function(req, res){
+ 		res.sendFile(path.join(__dirname, "../public/signup.html"));
  	});
 
- 	app.post('/coder/add', function(req, res){
- 		//var user: {
- 		//	userName: req.body. 
- 		//}
- 		console.log(req.body.name);
- 		console.log(req.body.email);
- 		console.log(req.body.password);
- 		res.send('ok'); // testing
+	app.get('/signin', function(req, res){
+ 		res.sendFile(path.join(__dirname, "../public/signin.html"));
  	});
+
+	app.post("/signup", function(req, res, next){
+		passport.authenticate("signup", function(err, coder, msg){
+			var data = {
+				error: err,
+				coder: coder,
+				msg: msg
+			}
+			return res.json(data);
+		})(req, res, next);
+	});	
 }

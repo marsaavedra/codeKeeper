@@ -22,11 +22,15 @@ app.use(session({ secret: 'repeeKedoc',resave: true, saveUninitialized:true})); 
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 
-
-//require("./routes/html-routes.js")(app);
-require("./routes/coder-api-routes.js")(app);
+//Routes
+require("./routes/html-routes.js")(app);
+require("./routes/coder-api-routes.js")(app, passport);
 require("./routes/snips-api-routes.js")(app);
 
+//load passport strategies
+require("./config/passport/passport.js")(passport, db.Coder);
+
+//Sync Database
 db.sequelize.sync({ /*force: true*/ }).then(function() {
   app.listen(PORT, function() {
     console.log("App listening on PORT" + PORT);
