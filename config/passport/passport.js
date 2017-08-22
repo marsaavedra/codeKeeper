@@ -59,4 +59,40 @@ module.exports = function(passport, coder){
 			});
 		}
 	));
+
+	passport.use('signin', new LocalStrategy(
+		{
+			usernameField: 'email',
+			passwordField: 'password',
+			passReqToCallback: true
+		},
+
+		function(req, email, password, done){
+			var Coder = coder;
+
+			var isValidPassword = function(coderpass, password){
+				return bCrypt.compareSync(password, coderpass);
+			}
+
+			Coder.findOne({
+				where: {
+					email: email
+				}
+			}).then(function(coder){
+				if(!coder) {
+					return done(null, false, "Email does not exist.");
+				}
+
+				if(!isValidPassword(coder.password, password)){
+					return done(null, false, "Incorrest password");
+				}
+
+				var coderinfo = coder.get();
+				return done(null, coderinfo);
+			}).catch(function(err){
+				return done(null, false, "Something went wrong.");
+			})
+		}
+
+	));
 }
