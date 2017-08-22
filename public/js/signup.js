@@ -1,20 +1,28 @@
 $(document).ready(function(){
 	function submitUser(){
-		var newUser = {
+		var newCoder = {
 			name: $("#name").val().trim(),
 			email: $("#email").val().trim(),
 			password: $("#password").val().trim()
 		};
 
-		$.post("/coder/add", newUser, function(res){
-			console.log(res);
-		})
+		$.post("/signup", newCoder, function(res){
+			if(res.error) throw error;
+
+			if(res.msg){
+				$("#msg").text(res.msg);
+				$("#email").focus();
+			} else {
+				window.location.href = "/dash";
+			}
+		});
 	}
 
 	$("#signupForm").validate({
 		submitHandler: function(form) {
 		    submitUser();
 		},
+		onkeyup: false,
 		rules: {
 			name: {
 				required: true,

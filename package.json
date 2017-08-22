@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/marsaavedra/codeKeeper#readme",
   "dependencies": {
+    "bcrypt": "^1.0.2",
     "body-parser": "^1.17.2",
     "express": "^4.15.4",
     "express-session": "^1.15.5",
