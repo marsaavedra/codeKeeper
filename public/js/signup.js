@@ -1,19 +1,23 @@
 $(document).ready(function(){
 	function submitUser(){
-
+		// Create an object with input fields values
 		var newUser = {
 			name: $("#name").val().trim(),
 			email: $("#email").val().trim(),
 			password: $("#password").val().trim()
 		};
 
+		// Post the user info to signup
 		$.post("/signup", newUser, function(res){
+			// Check response for error or messages
 			if(res.error) throw error;
 
 			if(res.msg){
+				// If server responds with a message is because email already exist
 				$("#msg").text(res.msg);
 				$("#email").focus();
 			} else {
+				// If singup successfully redirect to dash page
 				window.location.href = "/dash";
 			}
 		});
