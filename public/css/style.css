@@ -3,7 +3,7 @@ body{
 
     color: #fff;
     
-    background:url("./images/back.jpg");
+    background-color: #1E1C1C;
     
         }
 
@@ -11,7 +11,7 @@ body{
    font-family: 'IM Fell English', serif;
 
     color: #fff;
-    background:url("./images/back.jpg");
+   background-color: #1E1C1C;
     
 /*  background:url(http://1nova.com/wallpapers/wp-content/uploads/sites/34/2015/02/Retro-80s-Arcade-Game.jpg);*/
         }
@@ -96,15 +96,15 @@ input{
     color: rgb(47,224,212); 
 }
 
-.navbar-brand, .it, h1, i, .ol {
+.navbar-brand {
   display: inline-block;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
   padding: 2px;
   border: none;
-  font: normal 24px/normal "Warnes", Helvetica, sans-serif;
-  color: rgba(255,255,255,1);
+  font: normal 18px/normal "Warnes", Helvetica, sans-serif;
+  color: rgb(66, 134, 244);
   text-decoration: normal;
   text-align: center;
   -o-text-overflow: clip;
@@ -118,68 +118,32 @@ input{
 }
 
 .navbar-brand:hover {
-  text-shadow: 0 0 10px rgba(255,255,255,1) , 0 0 20px rgba(255,255,255,1) , 0 0 30px rgba(255,255,255,1) , 0 0 40px #00ffff , 0 0 70px #00ffff , 0 0 80px #00ffff , 0 0 100px #00ffff ;
-}
-
-/*
-stuff for triangle
-    */
-
-.logo-triangle {
-  animation: dash 6s linear forwards;
-  fill: url(#grad1);
-  filter :url(#dropshadow);
-  left: 50%;
-  margin-left: -350px;
-    margin-top: 100px;
-  position: absolute;
-  stroke-dasharray: 1200;
-  stroke-dashoffset: 1200;
-  top: 6em;
-  z-index: 8;  
+  text-shadow: 0 0 10px rgb(66, 134, 244) , 0 0 20px rgba(255,255,255,1) , 0 0 30px rgba(255,255,255,1) , 0 0 40px #00ffff , 0 0 70px #00ffff , 0 0 80px #00ffff , 0 0 100px #00ffff ;
 }
 
 h1 {
-  color: #C6CBF5;
-  font-family: 'Orbitron', sans-serif;
-  font-size: 125px;
-  font-weight: 1000;
-  line-height: 1.2;
-  left: 50%;
-  margin: 0;
-  margin-left: -200px;
-  position: absolute;
+  display: inline-block;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  padding: 2px;
+  border: none;
+  font: normal 50px/normal "Warnes", Helvetica, sans-serif;
+  color: rgba(255,255,255,1);
+  text-decoration: normal;
   text-align: center;
-  text-transform: uppercase;
-  margin-top: 100px;
-  width: 400px;
-  z-index: 11;
-  background: -webkit-linear-gradient(top, #151C60, #C6CBF5 40%, darken(purple, 30%) 40%, #E1A0CE 65%, white);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  -webkit-text-stroke-width: 2px;
-  -webkit-text-stroke-color: white;     
+  -o-text-overflow: clip;
+  text-overflow: clip;
+  white-space: pre;
+  text-shadow: 0 0 10px rgba(255,255,255,1) , 0 0 20px rgba(255,255,255,1) , 0 0 30px rgba(255,255,255,1) , 0 0 40px #ff00de , 0 0 70px #ff00de , 0 0 80px #ff00de , 0 0 100px #ff00de ;
+  -webkit-transition: all 200ms cubic-bezier(0.42, 0, 0.58, 1);
+  -moz-transition: all 200ms cubic-bezier(0.42, 0, 0.58, 1);
+  -o-transition: all 200ms cubic-bezier(0.42, 0, 0.58, 1);
+  transition: all 200ms cubic-bezier(0.42, 0, 0.58, 1);
 }
-   
-h2 {
- color: rgb(47,224,212);
- display: block;
- font-family: 'Yellowtail', cursive;
- font-size: 100px;
- margin-right: -8em;
- position: absolute;
- text-shadow: 
- 0 0 1px rgb(209,0,177),
- 0 -3px 3px rgba(white,0.8),
- 0 3px 3px rgba(black,0.5),  
- 0 0 15px rgb(209,0,177),
- 0 0 45px rgba(209,0,177,0.8);
- text-align: center;
- text-decoration: underline;
- text-transform: none;
- transform: skew(-10deg) rotate(-10deg);
- margin-top: 200px;
-    margin-left: 100px;
- width: 100%;
- z-index: 11;
+p {
+    color: black;
+}
+h6, h4 {
+    color: black;
 }
