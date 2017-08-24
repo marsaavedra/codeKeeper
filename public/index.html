@@ -3,72 +3,95 @@
 <head>
   <title>Code Keeper</title>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  
-  
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" >
-<link href="https://fonts.googleapis.com/css?family=IM+Fell+English" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css?family=Mukta+Malar" rel="stylesheet">
 
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
 
 <link rel="stylesheet" type="text/css" href="css/style.css">
 
 </head>
 <body>
-<nav class="navbar navbar-default">
-  <div class="container-fluid lines">
-<!--
-    <div class="navbar-header">
-      <a class="navbar-brand" href="#">Code Keeper</a>
-    </div>
 
--->
+<container class="bgl">
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="#">Code Keeper</a>
+  <a class="navbar-brand" href="index.html">Home</a>
+   <a class="navbar-brandd" href="index.html">LogIndddddddsdfsjdfusdjlfnsldknflskdnlnsdklnlsdknvlsdnvlndlvnsldnvlsdnvlsd</a>
+
+      <a class="navbar-brand" href="index.html">Log In</a>
+    <label for="inputEmail" class="sr-only" >Email address</label>
+        <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+        <label for="inputPassword" class="sr-only">Password</label>
+        <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+         <button class="btn btn-md btn-primary btn-block" type="submit">Sign in</button>
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+    <form class="form-inline my-2 my-lg-0">
       
-    <ul class="nav navbar-nav">
-      <li class="active"><a href="/">Home</a></li>
-      <li id="it"><a href="/signin">Log In</a></li>
-      <li id="it"><a href="/signup">Sign Up</a></li>
-      <li id="it"><a  href="/">Log Out</a></li>
-    </ul>
-  <ul>
+    </form>
   </div>
 </nav>
 
-  
-<div class="container">
-  
-  <p class="li">Store and categorize all of your code snippets and find it in seconds saving you time to focus on creating.</p>
-    <br>
-</div>
-    
-    <!--  extra stuff-->
-    <div class="wrapper">
-     <h1>code </h1>
-     <h2>keeper</h2>
+<div class="row">
+  <div class="col">
 
-    <svg height="640" width="800" class="logo-triangle">
-        <defs>
-            <linearGradient id="grad1" x1="0%" y1="100%" x2="100%" y2="0%">
-                <stop offset="0%" style="stop-color:rgb(50,50,50);stop-opacity:1" />
-                <stop offset="100%" style="stop-color:black;stop-opacity:1" />
-            </linearGradient>
-        </defs>
-        <filter id="dropshadow" height="130%">
-            <feGaussianBlur in="SourceAlpha" stdDeviation="3" />
-            <feOffset dx="2" dy="2" result="offsetblur" />
-            <feMerge>
-                <feMergeNode/>
-                <feMergeNode in="SourceGraphic" />
-            </feMerge>
-        </filter>
-        <polygon points="0,0 750,0 400,563" stroke="#36e2f8" stroke-width="3" />
-    </svg>
-    <div class="grid"></div>
+  <div class="mt-1">
+  <br>
+        <h1>Code Keeper</h1>
+      </div>
+      <p class="lead">Store and categorize all of your code snippets and find it in seconds saving you time to focus on creating.</p>
+      </div>
+
+
+  <div class="col">
+  <form class="form-signin">
+  <br>
+       <h2 class="headerSign">Sign Up</h2>
+            <form action="" method="post" id="signupForm">
+
+        <p id="msg">
+        </p>
+                <div class="form-group">
+                    <input class="form-control" type="text" name="name" id="name" placeholder="NAME">
+                </div>
+
+                <div class="form-group">
+                    <input class="form-control" type="email" name="email" id="email" placeholder="YOUR EMAIL">
+                </div>
+
+                <div class="form-group ">
+                    <input class="form-control" type="password" name="password" id="password" value="" placeholder="PASSWORD">
+                </div>
+                 <div class="form-group ">
+                    <input class="form-control" type="password" name="confirmPassword" id="confirmPassword" value="" placeholder="CONFIRM PASSWORD">
+                </div>
+
+                <button type="submit" class="signbuttons btn btn-primary">Sign Up</button>
+                <!--   <a href="dash.html" class="btn">Sign Up</a> -->
+            </form>
+
 </div>
+  <div class="w-100"></div>
+  
+</div>
+</container>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<div align="center">
+  <footer>&copy; Copyright 2017 The Fellowship</footer>
+</div>
+
+
 <!--    end of extra-->
 
 
 </body>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  
 </html>
