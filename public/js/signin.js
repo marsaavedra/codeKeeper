@@ -6,6 +6,7 @@ $(document).ready(function(){
 			password: $("#password").val().trim()
 		};
 
+		console.log(user);
 		// Post the user info to signin
 		$.post("/signin", user, function(res){
 			// Check response for error or messages
@@ -13,7 +14,11 @@ $(document).ready(function(){
 
 			if(res.msg){
 				// If server responds with a message is because email or password is invalid
-				$("#msg").text("Invalid Email or password.");
+				var $p = $("<p>");
+				$p.text("Invalid Email or password.").addClass("alert alert-danger");
+
+				$("#msg").append($p);
+
 				$("#email").focus();
 			} else {
 				// If login successfully redirect to dash page
@@ -27,6 +32,7 @@ $(document).ready(function(){
 		    loginUser();
 		},
 		onkeyup: false,
+		errorClass: 'text-danger',
 		rules: {
 			email: {
 				required: true
