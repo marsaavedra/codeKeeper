@@ -1,73 +1,65 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <title>Code Keeper</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <head>
+    <title>Code Keeper</title>
+    <meta charset="utf-8">
 
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" >
-  <link href="https://fonts.googleapis.com/css?family=Mukta+Malar" rel="stylesheet">
-  <link rel="stylesheet" type="text/css" href="css/style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> 
-<link href="https://fonts.googleapis.com/css?family=Mukta+Malar" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+  </head>
 
-<link rel="stylesheet" type="text/css" href="css/style.css">
+  <body>
+    <header>
+      <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <!-- <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button> -->
+            <a class="navbar-brand" href="/">Code Keeper</a>
+          </div>
 
-
-</head>
-<body>
-<nav class="navbar navbar-default">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <a class="navbar-brand" href="#">Code Keeper</a>
-    </div>
-    <ul class="nav navbar-nav">
-      <li class="active"><a href="/">Home</a></li>
-      <li><a href="/signin">Log In</a></li>
-      <li><a href="/signup">Sign Up</a></li>
-       <li><a  href="/">Log Out</a></li>
-    </ul>
-  </div>
-</nav>
-   
-<div class="row col-md-8 col-md-offset-2 registeration">
-    
-<div class="registerInner">
-        
-     
-             
-        <div class ="col-md-6">
-            <h3 class="headerSign">Log In</h3>
-            <form action="" method="" id="signinForm">
-                <p id="msg"></p>
-                <div class="form-group">                    
-                    <input class="form-control" type="text" name="email" id="email" placeholder="YOUR EMAIL">
-                </div>
-                
-                <div class="form-group">
-                    <input class="form-control" type="password" name="password" id="password" placeholder="PASSWORD" value="">
-                </div>
-
-               <button type="submit" class="signbuttons btn btn-primary" id="submit">Log In</button>
-                   <!-- <a href="dash.html" class="btn">Log In</a> -->
-                
-            </form>
-
-            
+          <!-- <div class="collapse navbar-collapse" id="navbar-collapse">
+            <ul class="nav navbar-nav navbar-right">
+              <li><a href="#">Sign In <span class="sr-only">(current)</span></a></li>
+            </ul>
+          </div> -->
         </div>
-             
-</div>
-        
-</div>
+      </nav>
+    </header>
 
+    <main class="container">
+      <div class="row">
+       <div class="form-container"> 
+        <div id="msg"></div>
+         
+          <form id="signinForm">
+            <h2 >Sign In</h2>
+            <div class="form-group">
+              <label for="email">Email address</label>
+              <input type="email" id="email" name="email" class="form-control" placeholder="Email address"  autofocus>
+            </div>
+            <div class="form-group">
+              <label for="inputPassword">Password</label>
+              <input type="password" id="password" name="password" class="form-control" placeholder="Password" >
+            </div>
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+          </form>
 
-</body>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> 
-  <script type="text/javascript" src="js/jquery.validate.js"></script>
-  <script type="text/javascript" src="js/signin.js"></script>
+          <hr>
+          <p>Don't have an account</p>
+          <a href="/" class="btn btn-default btn-block" role="button">Create your account</a>
+      </div>
+    </main>
+    </body>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="js/jquery.validate.js"></script>
+    <script type="text/javascript" src="js/signin.js"></script>
 </html>
