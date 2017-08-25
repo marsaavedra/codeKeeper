@@ -14,7 +14,6 @@ module.exports = function(app){
 
  	// Get routes for sign in
 	app.get('/signin', function(req, res){
-		if(req.user) console.log(req.user);
  		res.sendFile(path.join(__dirname, "../public/signin.html"));
  	});
 

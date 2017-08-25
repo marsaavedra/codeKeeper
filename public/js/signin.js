@@ -6,17 +6,19 @@ $(document).ready(function(){
 			password: $("#password").val().trim()
 		};
 
-		console.log(user);
 		// Post the user info to signin
 		$.post("/signin", user, function(res){
 			// Check response for error or messages
+
 			if(res.error) throw error;
 
 			if(res.msg){
 				// If server responds with a message is because email or password is invalid
+				// create a p tag, add error text, add class alert
 				var $p = $("<p>");
-				$p.text("Invalid Email or password.").addClass("alert alert-danger");
+				$p.text("Invalid Email or Password.").addClass("alert alert-danger");
 
+				// Append the p tag to div with id = msg
 				$("#msg").append($p);
 
 				$("#email").focus();
