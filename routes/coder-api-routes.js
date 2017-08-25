@@ -29,13 +29,19 @@ module.exports = function(app, passport){
 	// Post route for sign up
 	app.post("/signup", function(req, res, next){
 		passport.authenticate("signup", function(err, user, msg){
-			// send a response object with any error, user or messages.
-			var data = {
-				error: err,
-				user: user,
-				msg: msg
+			if(user){
+				// If user is created successfully, establish a session and send a response.
+			 	req.logIn(user, function(){
+			 		return res.json(user);
+			 	});
+			} else {
+				// send a response object with any error or messages.
+				var data = {
+					error: err,
+					msg: msg
+				}
+				return res.json(data);
 			}
-			return res.json(data);
 		})(req, res, next);
 	});	
 
