@@ -1,7 +1,5 @@
 body{
   font-family: 'IM Fell English', serif;
-  color: #fff;
-  background-color: #1E1C1C;
 }
 
 .form-container {
@@ -10,10 +8,6 @@ body{
 }
 
 input{
-    border-top: none !important;
-    border-right: none !important;
-    border-left: none !important;
-    border-bottom: 1px dotted #2196f3 !important;
     box-shadow: none !important;
     -webkit-box-shadow: none !important;
     -moz-box-shadow: none !important;
@@ -23,4 +17,14 @@ input{
 
 label.text-danger {
   font-weight: 400;
+}
+
+ #editor {
+    height: 200px;
+    border: 1px solid #ccc;
+    margin-top: 10px;
+}
+
+#privacy {
+    margin-left: 20px;
 }
