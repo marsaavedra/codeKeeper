@@ -14,7 +14,12 @@ $(document).ready(function(){
 
 			if(res.msg){
 				// If server responds with a message is because email already exist
-				$("#msg").text(res.msg);
+				// create a p tag, add error text, add class alert
+				var $p = $("<p>");
+				$p.text("That email is already taken.").addClass("alert alert-danger");
+
+				// Append the p tag to div with id = msg
+				$("#msg").append($p);
 				$("#email").focus();
 			} else {
 				// If singup successfully redirect to dash page
@@ -28,6 +33,7 @@ $(document).ready(function(){
 		    submitUser();
 		},
 		onkeyup: false,
+		errorClass: 'text-danger',
 		rules: {
 			name: {
 				required: true,
@@ -49,17 +55,21 @@ $(document).ready(function(){
 		},
 		messages: {
 			name: {
-				required: "Please enter your user name.",
+				required: "Enter your user name.",
 				minlength: "Your user name must be at least 6 characters long."
 			},
+			email:{
+				required: "Enter your email address.",
+				email: "Enter a valid email address"
+			},
 			password: {
-				required: "Please provide your password.",
-				minlength: "Your password must be at least 6 characters long."
+				required: "Enter your password.",
+				minlength: "Password must be at least 6 characters."
 			},
 			confirmPassword: {
-				required: "Please confirm your password.",
-				minlength: "Your password must be at least 6 characters long.",
-				equalTo: "Please enter the same password as above."
+				required: "Confirm your password.",
+				minlength: "Password must be at least 6 characters.",
+				equalTo: "Enter the same password as above."
 			}
 		}
 	});
