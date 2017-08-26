@@ -2,8 +2,8 @@ $(document).ready(function(){
 	function loginUser(){
 		// Create an object with input fields values
 		var user = {
-			email: $("#email").val().trim(),
-			password: $("#password").val().trim()
+			email: $("#signInEmail").val().trim(),
+			password: $("#signInPassword").val().trim()
 		};
 
 		// Post the user info to signin
@@ -15,13 +15,14 @@ $(document).ready(function(){
 			if(res.msg){
 				// If server responds with a message is because email or password is invalid
 				// create a p tag, add error text, add class alert
+				$('.alert').remove();
 				var $p = $("<p>");
 				$p.text("Invalid Email or Password.").addClass("alert alert-danger");
 
 				// Append the p tag to div with id = msg
-				$("#msg").append($p);
+				$("#signInMsg").append($p);
 
-				$("#email").focus();
+				$("#signInEmail").focus();
 			} else {
 				// If login successfully redirect to dash page
 				window.location.href = "/dash";
@@ -36,18 +37,18 @@ $(document).ready(function(){
 		onkeyup: false,
 		errorClass: 'text-danger',
 		rules: {
-			email: {
+			signInEmail: {
 				required: true
 			},
-			password: {
+			signInPassword: {
 				required: true
 			}
 		},
 		messages: {
-			email: {
+			signInPassword: {
 				required: "Please provide your email."
 			},
-			password: {
+			signInPassword: {
 				required: "Please provide your password."
 			},
 		}

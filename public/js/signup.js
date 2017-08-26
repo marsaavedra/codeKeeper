@@ -15,11 +15,12 @@ $(document).ready(function(){
 			if(res.msg){
 				// If server responds with a message is because email already exist
 				// create a p tag, add error text, add class alert
+				$('.alert').remove();
 				var $p = $("<p>");
 				$p.text("That email is already taken.").addClass("alert alert-danger");
 
 				// Append the p tag to div with id = msg
-				$("#msg").append($p);
+				$("#signUpMsg").append($p);
 				$("#email").focus();
 			} else {
 				// If singup successfully redirect to dash page
