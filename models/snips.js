@@ -10,28 +10,22 @@ module.exports = function(sequelize, DataTypes) {
 
     snippet: {
       type: DataTypes.TEXT,
-      allowNull: false,
+      allowNull: false
     },
 
     description: {
-      type: DataTypes.STRING,
-      allowNull: false,
+      type: DataTypes.STRING
     },
 
     language: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: false
     },
 
-    status: {
+    privacy: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: false
     },
-
-    liked: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-    }
   });
 
   Snips.associate = function(models) {
@@ -39,6 +33,12 @@ module.exports = function(sequelize, DataTypes) {
       foreignKey: {
         allowNull: false
       }
+    });
+  };
+
+  Snips.associate = function(models) {
+    Snips.hasMany(models.Bookmarks, {
+      onDelete: "cascade"
     });
   };
 
