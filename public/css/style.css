@@ -1,5 +1,10 @@
+@font-face {
+    font-family: logo;
+    src: url(../fonts/logo2.ttf);
+  }
 
 body{
+    margin: 20px 0;
   font-family: 'IM Fell English', serif;
 }
 
@@ -17,10 +22,116 @@ input{
 }
 
 label.text-danger {
-  font-weight: 400;
+    font-weight: 400;
 }
 
- #editor {
+#logoImg {
+    width: 111px;
+    position: absolute;
+    top: -25px;
+    left: 0px;
+    z-index: 1;
+}
+
+#logoTxt {
+    position: absolute;
+    font-family: logo;
+    left: 86px;
+    top: 0px;
+    color: #ffffff;
+    font-size: 31px;
+    text-shadow: 4px 6px 9px #000000;
+    z-index: 2;
+}
+
+.linkContainer {
+  left: 113px;
+  border-right: solid #000 2px;
+  border-left: solid #000 2px;
+  width: 45px;
+  height: 60px;
+  transform: skewX(-20deg);
+  float: right;
+  margin: 0 4px;
+  background-color: #ccc;
+  background: -webkit-linear-gradient(top, #fff , #696969);
+  overflow: hidden;
+}
+
+.linkImg {
+  width: 58px;
+  transform: skewX(20deg);
+  position: absolute;
+  left: -8px;
+  top: 6px;
+}
+
+.links {
+  float:right;
+  padding: 0;
+  margin-right: 0;
+}
+.nav {
+    padding-right: 5px;
+}
+.nav>li>a {
+    padding: 0;
+}
+#signLink {
+  background: -webkit-linear-gradient(top, #af30d8 , #db9ffb);
+}
+
+#globalLink {
+  background: -webkit-linear-gradient(top, #5484dc , #d4dbff);
+}
+
+#dashLink {
+  display: ;
+  background: -webkit-linear-gradient(top, #3bb6ca , #5afff0);
+}
+
+#snipLink{
+  display: ;
+  background: -webkit-linear-gradient(top, #d48f54 , #fde399);
+}
+
+#signinDiv {
+    display: ;
+}
+
+#signupDiv{
+    display: none;
+}
+
+#searchbar {
+    margin: 10px 0;
+}
+
+#snipArea {
+    margin: 0 auto;
+    width: 600px;
+}
+
+#snipImg {
+    width: 100%;
+    position: relative;
+    top: -20px;
+}
+
+#categoryOutput {
+    position: absolute;
+    width: 117px;
+    bottom: -43px;
+    right: -10px;
+    z-index: 13;
+}
+
+#categoryOutput>h2 {
+    padding: 0;
+    margin: 0;
+}
+
+#editor {
     height: 200px;
     border: 1px solid #ccc;
     margin-top: 10px;

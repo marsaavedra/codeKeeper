@@ -23,12 +23,26 @@
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/">Code Keeper</a>
+            <img src="/images/tri-purple.png" id="logoImg">
+            <a class="navbar-brand" href="/" id="logoTxt"></a>
           </div>
-
           <div class="collapse navbar-collapse" id="navbar-collapse">
             <ul class="nav navbar-nav navbar-right">
-              <li><a href="/signin">Sign In <span class="sr-only">(current)</span></a></li>
+              <li>
+                <a href="/global.html" id="links">
+                  <div id="globalLink" class="linkContainer">
+                    <img src="/images/search2.png" class="linkImg">
+                  </div>
+                </a>
+              </li>
+              <li>
+                <a href="/" id="links">
+                  <div id="signLink" class="linkContainer">
+                    <img src="/images/user.png" class="linkImg">
+                  </div>
+                <span class="sr-only">(current)</span>
+                </a>
+              </li>
             </ul>
           </div>
         </div>
@@ -43,8 +57,30 @@
         
           <p class="lead">Store and categorize all of your code snippets and find it in seconds saving you time to focus on creating.</p>
         </div>
+  
+          <div class="col-sm-6" id="signinDiv"> 
+            <div id="msg"></div>
+              <h2>Sign In</h2>
+              <form id="signinForm">
+                  <div class="form-group">
+                      <label for="email">Email address</label>
+                      <input type="email" id="email" name="email" class="form-control" placeholder="Email address"  autofocus>
+                  </div>
 
-        <div class="col-sm-6">
+                  <div class="form-group">
+                      <label for="inputPassword">Password</label>
+                      <input type="password" id="password" name="password" class="form-control" placeholder="Password" >
+                  </div>
+
+                  <button class="btn btn-primary btn-block" type="submit">Sign in</button>
+              </form>
+
+              <hr>
+              <p>Don't have an account</p>
+              <a href="" class="btn btn-default btn-block" role="button" id="signupButton">Create your account</a>
+          </div>    
+
+        <div class="col-sm-6" id="signupDiv">
           <div id="msg"></div>
           <h2>Sign Up</h2>
           <form action="" method="post" id="signupForm">
@@ -78,5 +114,7 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
   <script type="text/javascript" src="js/jquery.validate.js"></script>
   <script type="text/javascript" src="js/signup.js"></script>
+  <script type="text/javascript" src="js/signin.js"></script>
+  <script type="text/javascript" src="js/header.js"></script>
 
 </html>

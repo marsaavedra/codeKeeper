@@ -17,6 +17,11 @@ module.exports = function(app){
  		res.sendFile(path.join(__dirname, "../public/signin.html"));
  	});
 
+ 	// Get routes for global
+	app.get('/global', function(req, res){
+ 		res.sendFile(path.join(__dirname, "../public/global.html"));
+ 	});
+
 	// Get routes for dash
  	app.get('/dash', function(req, res){
  		// Only autenticated user can access this page

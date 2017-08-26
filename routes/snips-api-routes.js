@@ -3,19 +3,44 @@ var path = require("path");
 // Routes
 // =============================================================
 module.exports = function(app) {
-  app.get("/test", function(req, res) {
-    res.sendFile(path.join(__dirname, "../test/test.html"));
+
+  // Get route for retrieving all snippets of a specific user
+  app.get("/api/snippets/user/:user", function(req, res) {
+    db.User.findAll({
+      where: {
+        name: req.params.user
+      },
+      include: [{
+        model: db.Snips,
+        where: { status: "public"}
+      }]
+
+    }).then(function(result) {
+      res.json(result);
+    });
   });
 
-  // GET route for getting all of the snippets
-  app.get("/api/snippets", function(req, res) {
-    db.Snips.findAll({
+  // GET route for pagination of the snippets
+  app.get("/api/snippets/pagination/:offset", function(req, res) {
+    console.log(req.params.offset)
+    db.Snips.findAndCountAll({
+      offset: parseInt(req.params.offset),
+      limit: 5,
+
       include: [db.User]
     }).then(function(result) {
       res.json(result);
     });
   });
 
+  // GET route for getting all of the snippets
+  app.get("/api/snippets", function(req, res) {
+    db.Snips.findAndCountAll({
+      include: [db.User]
+    }).then(function(result) {
+      res.json(result);
+    });
+  });
 
   // Get route for retrieving all snippets of a specific language
   app.get("/api/snippets/category/:language", function(req, res) {

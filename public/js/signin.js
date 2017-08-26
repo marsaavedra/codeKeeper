@@ -52,4 +52,16 @@ $(document).ready(function(){
 			},
 		}
 	});
+
+	$("#signupButton").on("click", function(event){
+		event.preventDefault();
+		console.log("button")
+		$("#signinDiv").fadeOut(500);
+		setTimeout( 
+			function(){ 
+				$("#signupDiv").fadeIn(500);
+			}, 500
+		);
+
+	});
 })
