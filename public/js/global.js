@@ -13,7 +13,7 @@ $(document).ready(function(){
   var pages = 0;
 
 function pageNumber(){
-   //get the count of snippets
+   get the count of snippets
    $.get("/api/snippets/", function(data) {
       //loop through adding a page by / snippet count by 5
       for(var i = 0; i < (data.rows.length / 5) ; i++){
