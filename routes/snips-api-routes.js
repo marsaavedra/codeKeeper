@@ -43,9 +43,17 @@ module.exports = function(app) {
 
   // POST route for saving a new snippet
   app.post("/api/snippets", function(req, res) {
-    db.Snips.create(req.body).then(function(result) {
+    
+    db.Snips.create({
+      title: req.body.title,
+      description: req.body.description,
+      snippet: req.body.snippet,
+      language: req.body.language,
+      status: req.body.status,
+      liked: req.body.liked,
+      UserId: req.user.id
+    }).then(function(result) {
       res.json(result);
-      console.log(result);
     });
   });
 

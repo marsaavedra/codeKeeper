@@ -159,29 +159,30 @@
                     
                     <!-- body -->
                     <div class="modal-body">
-                        <div class="form-group">
-                            <input type="text" id="title" name="title" class="form-control" placeholder="Title" autofocus >
-                        </div>
+                        <form id="snippetForm">
+                            <div class="form-group">
+                                <input type="text" id="title" name="title" class="form-control" placeholder="Title" autofocus >
+                            </div>
 
-                        <div class="form-group">
-                            <textarea id="description" name="description" class="form-control" placeholder="Description"></textarea>
-                        </div>
+                            <div class="form-group">
+                                <textarea id="description" name="description" class="form-control" placeholder="Description"></textarea>
+                            </div>
 
-                        <div class="input-group">
-                            <select name="category" id="category">
-                                <option value="" selected="">Category</option>
-                                <option value="javascript">JavaScript</option>
-                                <option value="css">CSS</option>
-                                <option value="html">HTML</option>
-                                <option value="mysql">MySQL</option>
-                            </select>
+                            <div class="input-group">
+                                <select name="category" id="category">
+                                    <option value="" selected="">Category</option>
+                                    <option value="javascript">JavaScript</option>
+                                    <option value="css">CSS</option>
+                                    <option value="html">HTML</option>
+                                    <option value="mysql">MySQL</option>
+                                </select>
 
-                            <select name="privacy" id="privacy">
-                                <option value="private" selected>Private</option>
-                                <option value="public">Public</option>
-                            </select>
-                        </div>
-                        
+                                <select name="privacy" id="privacy">
+                                    <option value="private" selected>Private</option>
+                                    <option value="public">Public</option>
+                                </select>
+                            </div>
+                        </form>
 <div id="editor">function test(){
     console.log('test');
     return false;
@@ -204,33 +205,9 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
     <script type="text/javascript" src="https://cdn.jsdelivr.net/ace/1.2.6/min/ace.js"></script>
-   <script type="text/javascript" src="https://cdn.jsdelivr.net/g/ace@1.2.6(min/mode-html.js+min/mode-css.js+min/mode-javascript.js+min/mode-mysql.js+min/mode-php.js+min/mode-python.js)"></script>
-   <script type="text/javascript" src="https://cdn.jsdelivr.net/ace/1.2.6/min/theme-dawn.js"></script>
-
-    
-    <script type="text/javascript">
-        $(document).ready(function(){
-
-            var editor = ace.edit("editor");
-            editor.setTheme("ace/theme/dawn");
-            editor.getSession().setMode("ace/mode/text");
-            //chrome, crimson_editor, dawn, github, 
-
-            $('#add-new').on("click", function(){
-                $('#modal').modal({
-                    keyboard: false
-                });
-            });
-
-            $('#category').on('change', function(){
-                editor.getSession().setMode("ace/mode/" + $(this).val());
-            });
-
-            $('#save').on('click', function(){
-                alert('save data');
-                $('#modal').modal('toggle');
-            })
-        })
-    </script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/g/ace@1.2.6(min/mode-html.js+min/mode-css.js+min/mode-javascript.js+min/mode-mysql.js+min/mode-php.js+min/mode-python.js)"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/ace/1.2.6/min/theme-dawn.js"></script>
+    <script type="text/javascript" src="js/jquery.validate.js"></script>
+    <script type="text/javascript" src="js/dash.js"></script>
     
 </html>
