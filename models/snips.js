@@ -29,14 +29,6 @@ module.exports = function(sequelize, DataTypes) {
   });
 
   Snips.associate = function(models) {
-    Snips.belongsTo(models.User, {
-      foreignKey: {
-        allowNull: false
-      }
-    });
-  };
-
-  Snips.associate = function(models) {
     Snips.hasMany(models.Bookmarks, {
       onDelete: "cascade"
     });

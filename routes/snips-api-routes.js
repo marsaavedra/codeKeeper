@@ -74,8 +74,7 @@ module.exports = function(app) {
       description: req.body.description,
       snippet: req.body.snippet,
       language: req.body.language,
-      status: req.body.status,
-      liked: req.body.liked,
+      privacy: req.body.privacy,
       UserId: req.user.id
     }).then(function(result) {
       res.json(result);

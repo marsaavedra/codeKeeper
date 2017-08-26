@@ -22,8 +22,7 @@ $(document).ready(function(){
                 description: $("#description").val().trim(),
                 language: $("#category").val().trim(),
                 snippet: editor.getSession().getValue(),
-                liked: 3,
-                status: $('#privacy').val()
+                privacy: $('#privacy').val()
             };
 
         $.post('/api/snippets', data, function(res){
