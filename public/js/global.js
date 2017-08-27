@@ -1,4 +1,6 @@
 $(document).ready(function(){
+
+
   //grabs the URL grabs the string after ?
   var params = decodeURIComponent(window.location.search.substring(1));
   //takes is and splits it when it sees the =
@@ -13,7 +15,7 @@ $(document).ready(function(){
   var pages = 0;
 
 function pageNumber(){
-   get the count of snippets
+   //get the count of snippets
    $.get("/api/snippets/", function(data) {
       //loop through adding a page by / snippet count by 5
       for(var i = 0; i < (data.rows.length / 5) ; i++){
@@ -88,25 +90,42 @@ function pagiFunc(offset){
 
 function snipBuild(data){
   var info = data.rows;
-  for(var i = 4; i < info.length; i++){
-    //create link
-       var output = "<div class='col-lg-12'>\n";
-       output += "  <div class='text-center' id='categoryOutput'>\n";
-       output += "    <h2 class='card-title'>" + info[i].language + "</h2>\n";
-       output += "    <img src='/images/" + info[i].language + ".png' id='snipImg'>\n";
-       output += "  </div>\n";
-       output += "  <h4 class='card-title'>" + info[i].title + "</h4>\n";
-       output += "  <h6 class='card-subtitle mb-2 text-muted'>" + info[i].description + "</h6>\n";
-       output += "   <div id='editor' class='snipTxt"+ i +"'></div>\n";
-       output += "  <a href='#'' class='card-link'>" + info[i].User.name + "</a>\n";
-       output += "  <a href='#' class='card-link'>Snips</a>\n</div>";      
-            
+
+  for(var i = 0; i < info.length; i++){
+   
+    //create output for snippets
+    var output =   "<div class='col-xs-12 box'>\n";
+    output +=      "  <div class='col-sm-4'>\n";
+    output +=      "    <div class='col-sm-12 col-xs-12 topInfo'>\n";
+    output +=      "      <h4 class='card-title'>"+info[i].title+"</h4>\n";
+    output +=      "      <h5 class='card-title language'>"+info[i].language+"</h5>\n";            
+    output +=      "    </div>\n";           
+    output +=      "    <div class='col-sm-12 col-xs-12'>\n";
+    output +=      "      <img src='/images/"+info[i].language+".png' class='snipImg'>\n";
+    output +=      "    </div>\n";
+    output +=      "      <div class='subInfo'>\n";
+    output +=      "        <h6 class='card-subtitle mb-2 text-muted'>"+info[i].description+"</h6>\n";
+    output +=      "        By:<a href='#' class='card-link'> "+info[i].User.name+"</a>\n";       
+    output +=      "        <a href='#' class='card-link'>Snips</a>\n";
+    output +=      "      </div>\n";                 
+    output +=      "    </div>\n";
+    output +=      "    <div class='col-sm-8 snipBox' id='snip"+ i +"'>\n</div>\n";
+    output +=      "</div>\n";
+    output +=      "<div class='row'>\n";
+    output +=      "  <div class='col-lg-12'>\n";
+    output +=      "    <hr>\n";
+    output +=      "  </div>\n";
+    output +=      "</div>\n";
 
         //place on page
-        // $("#snipArea").append(output);
+        $("#snipArea").append(output);
 
+        var snip1 = ace.edit("snip" + i);
+        snip1.getSession().setValue(info[i].snippet);
+        snip1.setReadOnly(true);
+        snip1.setTheme("ace/theme/dawn");
+        snip1.getSession().setMode("ace/mode/text");
 
-        $(".ace_text-layer").text(info[i].snippet);
         console.log(output);
   }
 

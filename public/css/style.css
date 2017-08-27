@@ -109,32 +109,54 @@ label.text-danger {
 
 #snipArea {
     margin: 0 auto;
-    width: 600px;
 }
 
-#snipImg {
-    width: 100%;
+.snipImg {
+  width: 100px;
+  padding: 0;
+  position: relative;
+  top: -21px;
+  margin-bottom: -7px;
+}
+
+.snipBox {
+    height: 200px;
+    border: 1px solid #ccc;
+}
+
+.topInfo {
+  top: 0px;
+}
+
+.subInfo {
     position: relative;
     top: -20px;
 }
 
-#categoryOutput {
-    position: absolute;
-    width: 117px;
-    bottom: -43px;
+.categoryOutput {
+    padding: 0;
+   /* position: absolute;
+    width: 130px;
+    bottom: -88px;
     right: -10px;
     z-index: 13;
+    float: right;*/
 }
 
-#categoryOutput>h2 {
+#snipArea>h2 {
     padding: 0;
     margin: 0;
+}
+
+.box {
+    position: relative;
+    padding: 5px;
+    vertical-align: middle;
 }
 
 #editor {
     height: 200px;
     border: 1px solid #ccc;
-    margin-top: 10px;
 }
 
 #privacy {
