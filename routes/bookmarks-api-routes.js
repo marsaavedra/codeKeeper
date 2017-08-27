@@ -20,6 +20,12 @@ module.exports = function(app, passport){
 
 	// Post route for sign up
 	app.post("/api/bookmarks", function(req, res, next){
-		
+		db.Bookmarks.create({
+      		title: req.body.title,
+      		SnipId : req.body.SnipId,
+      		UserId: req.user.id
+    	}).then(function(result) {
+      		res.json(result);
+    	});
 	});	
 }
