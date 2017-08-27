@@ -10,7 +10,10 @@ module.exports = function(sequelize, DataTypes) {
 
     snippet: {
       type: DataTypes.TEXT,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        notEmpty: true
+      }
     },
 
     description: {
@@ -19,12 +22,18 @@ module.exports = function(sequelize, DataTypes) {
 
     language: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        notEmpty: true
+      }
     },
 
     privacy: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        notEmpty: true
+      }
     },
   });
 
