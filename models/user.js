@@ -20,11 +20,11 @@ module.exports = function(sequelize, DataTypes) {
     }
   });
 
-  User.associate = function(models) {
-    User.hasMany(models.Snips, {
-      onDelete: "cascade"
-    });
-  };
+   User.associate = function(models) {
+     User.hasMany(models.Snips, {
+       onDelete: "cascade"
+     });
+    };
 
   return User;
 };

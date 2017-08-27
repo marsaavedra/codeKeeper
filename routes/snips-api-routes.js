@@ -12,7 +12,7 @@ module.exports = function(app) {
       },
       include: [{
         model: db.Snips,
-        where: { status: "public"}
+        where: { privacy: "public"}
       }]
 
     }).then(function(result) {
@@ -60,7 +60,7 @@ module.exports = function(app) {
       where: {
         id: req.params.id
       },
-      include: [db.Coder]
+      include: [db.User]
     }).then(function(result) {
       res.json(result);
     });
