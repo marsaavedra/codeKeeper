@@ -15,8 +15,8 @@ $(document).ready(function(){
         editor.getSession().setMode("ace/mode/" + $(this).val());
     });
 
-
     $('#save').on('click', function(){
+        console.log($('#privacy').val());
         var data = {
                 title: $("#title").val().trim(),
                 description: $("#description").val().trim(),
@@ -31,7 +31,6 @@ $(document).ready(function(){
             $("#category").val('');
             editor.getSession().setValue('');
             $('#privacy').val('');
-
             $('#modal').modal('toggle');
         }); 
     });
