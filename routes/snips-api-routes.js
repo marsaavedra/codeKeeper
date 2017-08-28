@@ -36,6 +36,9 @@ module.exports = function(app) {
   // GET route for getting all of the snippets
   app.get("/api/snippets", function(req, res) {
     db.Snips.findAndCountAll({
+      where: {
+        privacy: "public"
+      },
       include: [db.User]
     }).then(function(result) {
       res.json(result);
