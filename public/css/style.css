@@ -112,11 +112,12 @@ label.text-danger {
 }
 
 .snipImg {
-  width: 100px;
-  padding: 0;
-  position: relative;
-  top: -21px;
-  margin-bottom: -7px;
+    width: 100px;
+    padding: 0;
+    position: relative;
+    z-index: -2;
+    top: -21px;
+    margin-bottom: -24px;
 }
 
 .snipBox {
@@ -129,8 +130,12 @@ label.text-danger {
 }
 
 .subInfo {
-    position: relative;
+/*    position: relative;*/
     top: -20px;
+}
+
+.language {
+  z-index: 12;
 }
 
 .categoryOutput {
