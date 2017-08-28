@@ -162,6 +162,15 @@ $("#searchButton").on("click", function(event){
   search(searchQuery);
 })
 
+//---------------------------------------------------------
+
+$(".snipImg").on("click", function(event){
+ 
+    console.log("langue search value: " + this.val())
+    searchQuery = this.val();
+  search(searchQuery);
+})
+
 //-------------------------------------------------------
 function search(searchQuery){
   
@@ -172,7 +181,6 @@ function search(searchQuery){
     $.get("/api/snippets/", function(data) {
       searchQuery = searchQuery.toLowerCase();
       searchQuery = searchQuery.split(" ");
-    
       
       for(var i = 0; i < data.rows.length; i++){
         var currentID = parseInt(data.rows[i].id);
