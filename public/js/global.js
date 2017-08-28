@@ -5,30 +5,42 @@ $(document).ready(function(){
   var params = decodeURIComponent(window.location.search.substring(1));
   //takes is and splits it when it sees the =
   params = params.split("=");
+  console.log(params[1]);
+  var currentPage;
 
-  var currentPage = parseInt(params[1]);
+  if(params[1] === undefined){ 
+    currentPage = 1;
+  } else {
+    currentPage = parseInt(params[1]);
+  };
+  console.log(currentPage);
 
   //makes the offset by taking the page number and * it by 5 then - 5
   var offset = (currentPage * 5) - 5;
 
-  //set pages count to 0
-  var pages = 0;
+//--------------------------------------------------------------------------
+function pageNumber(data){
+    //set pages count to 0
+    var pages = 0;
+    $("#snipArea").html("");
 
-function pageNumber(){
-   //get the count of snippets
-   $.get("/api/snippets/", function(data) {
       //loop through adding a page by / snippet count by 5
       for(var i = 0; i < (data.rows.length / 5) ; i++){
         pages++
       } 
+
       console.log(pages + " pages.")
       pagiBuild(pages);
-      pagiFunc(offset);
-    });
-   
+      pagiFunc(data, offset);
 }
 
-pageNumber();
+//--------------------------------------------------------------------------
+
+$.get("/api/snippets/", function(data) {
+    console.log("starting data: " + data.rows.length);
+    pageNumber(data);   
+}); 
+
 
 //--------------------------------- pagiBuild ------------------------------
 //              function for adding pagination to bottom of snippets
@@ -82,11 +94,22 @@ function pagiBuild(pageCount){
   }
 }
 
-function pagiFunc(offset){
-     $.get("/api/snippets/pagination/" + offset, function(data) {
-      snipBuild(data);    
-    });
+//---------------------------------------------------------------------------
+
+function pagiFunc(data, offset){
+  var offsetData = {rows: []};
+  for(var i = 0; i < 5; i++){
+    if(data.rows[offset] !== undefined){
+      offsetData.rows.push(data.rows[offset]);
+    }
+    offset++
+  }
+  console.log("offsetData: " + offsetData.rows.length)
+  snipBuild(offsetData);       
 }
+
+//--------------------------------- pagiBuild ------------------------------
+//                   function for adding snippets to the page
 
 function snipBuild(data){
   var info = data.rows;
@@ -112,7 +135,7 @@ function snipBuild(data){
     output +=      "    <div class='col-sm-8 snipBox' id='snip"+ i +"'>\n</div>\n";
     output +=      "</div>\n";
     output +=      "<div class='row'>\n";
-    output +=      "  <div class='col-lg-12'>\n";
+    output +=      "  <div class='col-xs-12'>\n";
     output +=      "    <hr>\n";
     output +=      "  </div>\n";
     output +=      "</div>\n";
@@ -125,12 +148,106 @@ function snipBuild(data){
         snip1.setReadOnly(true);
         snip1.setTheme("ace/theme/dawn");
         snip1.getSession().setMode("ace/mode/text");
-
-        console.log(output);
   }
 
   console.log(data)
 }
 
+//----------------------------------------------------
+
+$("#searchButton").on("click", function(event){
+  event.preventDefault();
+
+    searchQuery = $(".searchInput").val().trim();
+  search(searchQuery);
+})
+
+//-------------------------------------------------------
+function search(searchQuery){
+  
+  var newData = {rows: []};
+  if(searchQuery !== ""){
+    console.log("searching...");
+
+    $.get("/api/snippets/", function(data) {
+      searchQuery = searchQuery.toLowerCase();
+      searchQuery = searchQuery.split(" ");
+    
+      
+      for(var i = 0; i < data.rows.length; i++){
+        var currentID = parseInt(data.rows[i].id);
+
+        var searchCheck = data.rows[i].title.split(" ");
+        // searching by keywords in title
+        for (var x = 0; x < searchCheck.length; x++){
+          var word = searchCheck[x].toLowerCase();
+          var usedCheck = false;
+          for (var y = 0; y < searchQuery.length; y++){
+            if(word == searchQuery[y]){
+              console.log("keyword match: " + word);
+              for(var z = 0; z < newData.rows.length; z++){
+                if(currentID === parseInt(newData.rows[z].id)){
+                  usedCheck = true;
+                  console.log("title: " + data.rows[i].title);
+                  console.log("used: " + usedCheck);
+                }
+              }
+              if(usedCheck){ 
+                usedCheck = false; 
+              } else {
+                console.log("title: " + data.rows[i].title);
+                console.log("used: " + usedCheck);
+                newData.rows.push(data.rows[i]);
+              }
+            }
+          }
+        }
+        // search by language Catagory
+        for(var x = 0; x < searchQuery.length; x++){
+          if(data.rows[i].language === searchQuery[x]){
+            console.log("language match: " + data.rows[i].language);
+            var usedCheck = false;
+            for(var y = 0; y < newData.rows.length; y++){
+              if( currentID === newData.rows[y].id){
+                usedCheck = true;
+                console.log("title: " + data.rows[i].title);
+                console.log("used: " + usedCheck);
+              } 
+            }
+            if(usedCheck){ 
+              usedCheck = false;
+            } else {
+              console.log("title: " + data.rows[i].title);
+              console.log("used: " + usedCheck);
+              newData.rows.push(data.rows[i]);
+            }
+          }
+          //search by username
+          if(data.rows[i].User.name.toLowerCase() == searchQuery[x].toLowerCase()){
+            console.log("User match: " + data.rows[i].User.name);
+            var usedCheck = false;
+            for(var y = 0; y < newData.rows.length; y++){
+              if(currentID === parseInt(newData.rows[y].id)){
+                usedCheck = true;
+                console.log("title: " + data.rows[i].title);
+                console.log("used: " + usedCheck);
+              } 
+            }
+            if(usedCheck){ 
+              usedCheck = false;
+            } else {
+              console.log("title: " + data.rows[i].title);
+              console.log("used: " + usedCheck);
+              newData.rows.push(data.rows[i]);
+            }
+          }
+        }
+      }
+      console.log(newData); 
+      pageNumber(newData);
+    });
+  }
+
+}
 
 });
