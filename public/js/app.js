@@ -392,6 +392,7 @@ function search(searchQuery){
     // Get user snippets
     $('#snipUser').on('click', function(){
         scope = 'user';
+        $('#locationTxt').text('My Snippets');
         getSnippets('user');
 
         $("#logoImg").attr("src", "/images/dash.png");
@@ -400,6 +401,7 @@ function search(searchQuery){
     // Get global snippets
     $('#snipGlobal').on('click', function(){
         scope = 'global';
+        $('#locationTxt').text('Global Snippets');
         getSnippets('global');
 
         $("#logoImg").attr("src", "/images/global.png");
