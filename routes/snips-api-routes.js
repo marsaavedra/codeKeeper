@@ -39,6 +39,9 @@ module.exports = function(app) {
           where: {
             UserId: req.user.id
           },
+          order: [
+            ['id', 'desc']
+            ],
           include: [db.User]
         }).then(function(result) {
           res.json(result);
