@@ -323,7 +323,7 @@ function search(searchQuery){
         $div.append($button);
 
         if(scope == 'user'){
-            $button = $('<button>').addClass('btn btn-default btn-xs');
+            $button = $('<button>').addClass('btn btn-default btn-xs edit');
             $span = $('<i>').addClass('fa fa-pencil');
             $button.append($span).append(' Edit');
             $div.append($button);
@@ -355,6 +355,21 @@ function search(searchQuery){
     });
 //----------------------------------------------------------------
 
+//---------------- Edit ------------------------------------------
+  $(document).on('click', '.edit', function(){
+      var id = $(this).parent().attr('data-index');
+      
+      $("#title").val(info[id].title);
+      $("#description").val(info[id].description);
+      $("#category").val(info[id].language);
+      editor.getSession().setValue(info[id].snippet);
+      $('#privacy').val(info[id].privacy);
+      $('#snippet-id').val(info[id].id);
+      $('#modal').modal('toggle');
+  })
+  
+//----------------------------------------------------------------
+
 // ---------------  Navbar Buttons  ------------------------------
 
     // Creat new snippet
@@ -367,6 +382,8 @@ function search(searchQuery){
     // Get user snippets
     $('#snipUser').on('click', function(){
         scope = 'user';
+        $('#locationTxt').text('My Snippets');
+
         getSnippets('user');
 
         $("#logoImg").attr("src", "/images/dash.png");
@@ -375,6 +392,8 @@ function search(searchQuery){
     // Get global snippets
     $('#snipGlobal').on('click', function(){
         scope = 'global';
+        $('#locationTxt').text('Global Snippets');
+
         getSnippets('global');
 
         $("#logoImg").attr("src", "/images/global.png");
@@ -388,7 +407,6 @@ function search(searchQuery){
       var snipId = $(this).parent().attr('data-snipId');
       var index = $(this).parent().attr('data-index');
      
-      alert(index + ',  ' + snipId);
       $.get('/api/bookmarks/' + snipId, function(res){
           if(!res) {
             $('#bk-title').val(info[index].title);
@@ -441,6 +459,13 @@ function search(searchQuery){
           if(res.error) throw error;
 
           $('#bookmark-modal').modal( 'hide' ).data( 'bs.modal', null );
+
+          var ulBookmarks = $('#bookmarkList')
+          var $li = $('<li>');
+          var $a = $('<a href="#">').text(newBookmark.title);
+          $a.attr('data-snipId', newBookmark.SnipId).addClass('bookmark-link');
+          $li.append($a);
+          ulBookmarks.append($li);
 
           $('#tooltip').tooltip('show');
            setTimeout( 
@@ -503,30 +528,55 @@ function search(searchQuery){
           return false;
       }
 
-      var snipet = editor.getSession().getValue();
-      if(snipet.length < 21){
+      var snippet = editor.getSession().getValue();
+      if(snippet.length < 21){
           var $l = $('<label class="text-danger">').text('The snippet content must be at least 20 characters long.');
           $('#editor').after($l);
           return false;
       }
 
-      var data = {
-              title: title,
-              description: $("#description").val().trim(),
-              language: $("#category").val().trim(),
-              snippet: snipet,
-              privacy: $('#privacy').val()
-          };
+      var snipId = $('#snippet-id').val().trim();
 
-      $.post('/api/snippets', data, function(res){
-          $("#title").val('');
-          $("#description").val('');
-          $("#category").val('text');
-          editor.getSession().setValue('');
-          $('#privacy').val('private');
-          $('#modal').modal('toggle');
-          getSnippets(scope);
-      }); 
+      if(snipId == "") {
+          var data = {
+                  title: title,
+                  description: $("#description").val().trim(),
+                  language: $("#category").val().trim(),
+                  snippet: snippet,
+                  privacy: $('#privacy').val()
+              };
+
+          $.post('/api/snippets', data, function(res){
+              clearFields();
+          }); 
+      } else {
+          var data = {
+                  id: snipId,
+                  title: title,
+                  description: $("#description").val().trim(),
+                  language: $("#category").val().trim(),
+                  snippet: snippet,
+                  privacy: $('#privacy').val()
+              };
+
+          $.ajax({
+            method: "PUT",
+            url: "/api/snippets",
+            data: data
+          }).done(function(){
+              clearFields();
+          })
+      }
   });
+
+  function clearFields(){
+    $("#title").val('');
+    $("#description").val('');
+    $("#category").val('text');
+    editor.getSession().setValue('');
+    $('#privacy').val('private');
+    $('#modal').modal('toggle');
+    getSnippets(scope);
+  }
 //---------------------------------------------------------------------
 });
