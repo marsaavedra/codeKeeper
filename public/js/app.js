@@ -1,166 +1,202 @@
 $(document).ready(function(){
   var info;
-
-   //grabs the URL grabs the string after ?
-  var params = decodeURIComponent(window.location.search.substring(1));
-  //takes is and splits it when it sees the =
-  params = params.split("=");
  
-  var currentPage;
+  var currentPage = 1;
 
-  if(params[1] === undefined){ 
-    currentPage = 1;
-  } else {
-    currentPage = parseInt(params[1]);
-  };
- 
+  //makes the offset by taking the page number and * it by 5 then - 5
+  var offset = (currentPage * 5) - 5;
 
-    //makes the offset by taking the page number and * it by 5 then - 5
-    var offset = (currentPage * 5) - 5;
+  var info;
+  var dataOutput = [];
+  //set pages count to 0
+  var pages = 0;
 
-    var info;
+  var scope = 'user';
+  getSnippets(scope);
+  getBookmarks();
 
-    var scope = 'user';
-    getSnippets(scope);
-    getBookmarks();
+  //--------------------------------------------------------------------------
+  function pageNumber(data){
+    pages = 0;
+    //loop through adding a page by / snippet count by 5
+    for(var i = 0; i < (data.rows.length / 5) ; i++){
+      pages++
+    } 
+    pagiBuild(pages);
+    pagiFunc(data, offset);
+  }
 
-    //--------------------------------------------------------------------------
-    function pageNumber(data){
-        //set pages count to 0
-        var pages = 0;
-        
-
-          //loop through adding a page by / snippet count by 5
-          for(var i = 0; i < (data.rows.length / 5) ; i++){
-            pages++
-          } 
-          pagiBuild(pages);
-          pagiFunc(data, offset);
-    }
-
-//--------------------------------------------------------------------------
+  //--------------------------------------------------------------------------
 
     function getSnippets(scope){
-        $.get("/api/snippets/" + scope, function(data) {
-            pageNumber(data);   
-        });
+      $.get("/api/snippets/" + scope, function(data) {
+          dataOutput = data;
+          pageNumber(dataOutput);   
+      });
     }
 
-//--------------------------------- pagiBuild ------------------------------
-//              function for adding pagination to bottom of snippets
+  //--------------------------------- pagiBuild ------------------------------
+  //              function for adding pagination to bottom of snippets
 
-function pagiBuild(pageCount){
+  function pagiBuild(pageCount){
+    console.log(pages + " pages.");
+    var contDiv = $("#pagiContainer");
+    contDiv.html("");
+    var link;
+    //check to see if there is more than one page of results.
+    //if there isn't we don't need to do anything
+    if(pageCount !== 1){
 
-  var contDiv = $("#pagiContainer");
-  var link;
-  //check to see if there is more than one page of results.
-  //if there isn't we don't need to do anything
-  if(pageCount !== 1){
-
-    //if you are on first page you don't need a previous link
-    if(currentPage !== 1){
-      //create link
-      link = "<a href='/test?page=";
-      link += currentPage -1;
-      link += "'><</a>";
-      //create div
-      var prev = $("<div>")
-      .addClass("pagi")
-      .attr("id", "previous")
-      .append(link);
-      //place on page 
-      contDiv.append(prev);  
-    }
-    
-    //loop for placing pagination on page
-    for(var i = 1; i <= pageCount; i++){
-      //if i = the page you are on style the div to show this
-      if(i === currentPage){
+      //if you are on first page you don't need a previous link
+      if(currentPage !== 1){
         //create link
-        link = "<a href='/test?page="+i+"'>"+i+"</a>";
         //create div
-        var pagi = $("<div>")
-        .addClass("pagi current")
-        .append(link);
-        //place on page
-        contDiv.append(pagi);
-      } else {
-        //create link
-        link = "<a href='/test?page="+i+"'>"+i+"</a>";
-        //create div
-        var pagi = $("<div>")
+        var prevPagi = $("<div>")
         .addClass("pagi")
-        .append(link);
-        //place on page
-        contDiv.append(pagi);
+        .attr("id", "previous")
+        .attr("page", currentPage - 1)
+        .html("<div class='txtDiv'><</div>");
+        //place on page 
+        contDiv.append(prevPagi);  
+      } else {
+        //create div
+        var prevPagi = $("<div>")
+        .addClass("empty")
+        .attr("id", "previous")
+
+        //place on page 
+        contDiv.append(prevPagi); 
       }
+      
+      //loop for placing pagination on page
+      for(var i = 1; i <= pageCount; i++){
+        //if i = the page you are on style the div to show this
+        if(i === currentPage){
+          //create div
+          var pagi = $("<div>")
+          .addClass("pagi current")
+          .attr("page", i)
+          .html("<div class='txtDiv'>"+ i +"</div>");
+          //place on page
+          contDiv.append(pagi);
+        } else {
+    
+          //create div
+          var pagi = $("<div>")
+          .addClass("pagi")
+          .attr("page", i)
+          .html("<div class='txtDiv'>"+ i +"</div>");
+          //place on page
+          contDiv.append(pagi);
+        }
+
+        if(i === pageCount){
+          if(currentPage !== pageCount){
+    
+            //create div
+            var nextPagi = $("<div>")
+            .addClass("pagi")
+            .attr("id", "next")
+            .attr("page", currentPage + 1)
+            .html("<div class='txtDiv'>></div>");
+            //place on page 
+            contDiv.append(nextPagi);
+          } else {
+            //create div
+            var nextPagi = $("<div>")
+            .addClass("empty")
+            .attr("id", "next")
+            //place on page 
+            contDiv.append(nextPagi);
+          }
+        }
+      }
+      $(".pagi").click(pageClick);
     }
   }
-}
 
-//---------------------------------------------------------------------------
+//------------------------------------------------------------------------
+//
 
-function pagiFunc(data, offset){
-  var offsetData = {rows: []};
-  for(var i = 0; i < 5; i++){
-    if(data.rows[offset] !== undefined){
-      offsetData.rows.push(data.rows[offset]);
+  function pagiFunc(data, offset){
+    var offsetData = {rows: []};
+    for(var i = 0; i < 5; i++){
+
+      if(data.rows[offset] !== undefined){
+        offsetData.rows.push(data.rows[offset]);
+      }
+      offset++
     }
-    offset++
+    console.log("current page: " + currentPage);
+    console.log("Items on page: " + offsetData.rows.length);
+    console.log(offsetData.rows.length);
+
+    snipBuild(offsetData);       
   }
-  console.log("offsetData: " + offsetData.rows.length)
-  snipBuild(offsetData);       
-}
+
+  //------------------------------------------------------------
+  //
+
+  function pageClick(){
+      $("pagiContainer").html("");
+      console.log($(this).attr("page"));
+      currentPage = parseInt($(this).attr("page"));
+      offset = (currentPage * 5) - 5;
+      pagiBuild(pages);
+      pagiFunc(dataOutput, offset)
+  };
 
 
-function snipBuild(data){
-    $("#snipArea").html("");
-    info = [];
-    if(data.rows){
-        info = data.rows;
-    } else {
-        info.push(data);
+  //------------------------------------------------------------
+  //
+  function snipBuild(data){
+      $("#snipArea").html("");
+      info = [];
+      if(data.rows){
+          info = data.rows;
+      } else {
+          info.push(data);
+      }
+    for(var i = 0; i < info.length; i++){
+     
+      //create output for snippets
+      var output =   "<div class='col-xs-12 box' id='box-" + i + "'>\n";
+      output +=      "  <div class='col-sm-4'>\n";
+      output +=      "    <div class='col-sm-12 col-xs-12 topInfo'>\n";
+      output +=      "      <h4 class='card-title'>"+info[i].title+"</h4>\n";
+      output +=      "      <h5 class='card-title language'>"+info[i].language+"</h5>\n";            
+      output +=      "    </div>\n";           
+      output +=      "    <div class='col-sm-12 col-xs-12'>\n";
+      output +=      "      <img src='/images/"+info[i].language+".png' class='snipImg'>\n";
+      output +=      "    </div>\n";
+      output +=      "      <div class='subInfo'>\n";
+      output +=      "        <h6 class='card-subtitle mb-2 text-muted'>"+info[i].description+"</h6>\n";
+      output +=      "        By:<a href='#' class='card-link'> "+info[i].User.name+"</a>\n";       
+      output +=      "        <a href='#' class='card-link'>Snips</a>\n";
+      output +=      "      </div>\n";                 
+      output +=      "    </div>\n";
+      output +=      "    <div class='col-sm-8 snipBox' id='snip"+ info[i].id +"'>\n</div>\n";
+      output +=      "</div>\n";
+      output +=      "<div class='row'>\n";
+      output +=      "  <div class='col-xs-12'>\n";
+      output +=      "    <hr>\n";
+      output +=      "  </div>\n";
+      output +=      "</div>\n";
+
+          //place on page
+          $("#snipArea").append(output);
+
+          var snip1 = ace.edit("snip" + info[i].id);
+          snip1.getSession().setValue(info[i].snippet);
+          snip1.setReadOnly(true);
+          snip1.setTheme("ace/theme/dawn");
+          snip1.getSession().setMode("ace/mode/" + info[i].language);
+
+          createButtons(i);
     }
-  for(var i = 0; i < info.length; i++){
-   
-    //create output for snippets
-    var output =   "<div class='col-xs-12 box' id='box-" + i + "'>\n";
-    output +=      "  <div class='col-sm-4'>\n";
-    output +=      "    <div class='col-sm-12 col-xs-12 topInfo'>\n";
-    output +=      "      <h4 class='card-title'>"+info[i].title+"</h4>\n";
-    output +=      "      <h5 class='card-title language'>"+info[i].language+"</h5>\n";            
-    output +=      "    </div>\n";           
-    output +=      "    <div class='col-sm-12 col-xs-12'>\n";
-    output +=      "      <img src='/images/"+info[i].language+".png' class='snipImg'>\n";
-    output +=      "    </div>\n";
-    output +=      "      <div class='subInfo'>\n";
-    output +=      "        <h6 class='card-subtitle mb-2 text-muted'>"+info[i].description+"</h6>\n";
-    output +=      "        By:<a href='#' class='card-link'> "+info[i].User.name+"</a>\n";       
-    output +=      "        <a href='#' class='card-link'>Snips</a>\n";
-    output +=      "      </div>\n";                 
-    output +=      "    </div>\n";
-    output +=      "    <div class='col-sm-8 snipBox' id='snip"+ info[i].id +"'>\n</div>\n";
-    output +=      "</div>\n";
-    output +=      "<div class='row'>\n";
-    output +=      "  <div class='col-xs-12'>\n";
-    output +=      "    <hr>\n";
-    output +=      "  </div>\n";
-    output +=      "</div>\n";
-
-        //place on page
-        $("#snipArea").append(output);
-
-        var snip1 = ace.edit("snip" + info[i].id);
-        snip1.getSession().setValue(info[i].snippet);
-        snip1.setReadOnly(true);
-        snip1.setTheme("ace/theme/dawn");
-        snip1.getSession().setMode("ace/mode/" + info[i].language);
-
-        createButtons(i);
   }
-}
 
-//----------------------------------------------------
+  //----------------------------------------------------
 
     $("#searchButton").on("click", function(event){
         event.preventDefault();
@@ -169,7 +205,7 @@ function snipBuild(data){
         search(searchQuery);
     })
 
-//---------------------------------------------------------
+  //---------------------------------------------------------
 
     $(".snipImg").on("click", function(event){
      

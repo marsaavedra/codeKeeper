@@ -167,3 +167,56 @@ label.text-danger {
 #privacy {
     margin-left: 20px;
 }
+
+#pagiContainer {
+  overflow: hidden;
+  display: inline-block; 
+  text-align: center;
+  padding: 0 5px;
+  font-family: logo;
+  font-size: 20px
+}
+
+.pagi {
+  border: solid #000 1px; 
+  border-left: 0;
+  height: 18px; 
+  width: 18px; 
+  float: left; 
+  margin: 0px;
+  transform: skewX(-20deg);
+  cursor: pointer;
+  background: -webkit-linear-gradient(top, #737373 , #f5f5f5); 
+}
+
+.txtDiv {
+  transform: skewX(20deg);
+  margin: -5px;
+}
+
+.current {
+  background: -webkit-linear-gradient(top, #b57c4c , #fde399);
+  background-color: #ECECEC;
+}
+
+.empty {
+  border: solid #000 1px; 
+  border-left: 0;
+  height: 18px; 
+  width: 18px; 
+  float: left; 
+  margin: 0px;
+  transform: skewX(-20deg); 
+}
+
+#previous {
+  background: none;
+  border: 0;
+  border-right: solid #000 1px;
+}
+
+#next {
+  background: none;
+  border: 0;
+
+}
