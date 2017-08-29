@@ -170,15 +170,13 @@ padding: 0 20px 0 0;
   overflow: hidden;
   display: inline-block; 
   text-align: center;
-  padding: 0 5px;
+  padding: 2px 5px;
   font-family: logo;
   font-size: 20px
 }
 
 .pagi {
   border: solid #000 1px; 
-  border-top: solid #ccc 1px;
-  border-bottom: solid #ccc 2px;
   border-left: 0;
   height: 30px;
   width: 30px;
@@ -212,12 +210,13 @@ padding: 0 20px 0 0;
   background: none;
   border: 0;
   border-right: solid #000 1px;
+  color: #fff;
 }
 
 #next {
   background: none;
   border: 0;
-
+  color: #fff;
 }
 
 .clickSearch {
