@@ -25,6 +25,14 @@ label.text-danger {
     font-weight: 400;
 }
 
+#navTxt {
+  font-family: logo;
+  font-size: 20px;
+  color: #fff;
+  float: left;
+  margin: 5px;
+}
+
 #logoImg {
     width: 111px;
     position: absolute;
@@ -174,6 +182,10 @@ label.text-danger {
   padding: 2px 5px;
   font-family: logo;
   font-size: 20px
+}
+
+#locationTxt {
+  font-family: logo;
 }
 
 .pagi {
