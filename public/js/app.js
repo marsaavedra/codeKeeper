@@ -3,10 +3,6 @@ $(document).ready(function(){
  
   var currentPage = 1;
 
-  //makes the offset by taking the page number and * it by 5 then - 5
-  var offset = (currentPage * 5) - 5;
-
-  var info;
   var dataOutput = [];
   //set pages count to 0
   var pages = 0;
@@ -15,9 +11,16 @@ $(document).ready(function(){
   getSnippets(scope);
   getBookmarks();
 
+  setTimeout(function(){$("#signLink").show("slow");}, 100);
+  setTimeout(function(){$("#globalLink").show("slow");}, 150);
+  setTimeout(function(){$("#dashLink").show("slow");}, 200);
+  setTimeout(function(){$("#snipLink").show("slow");}, 250);
+
   //--------------------------------------------------------------------------
   function pageNumber(data){
-
+    currentPage = 1;
+    //makes the offset by taking the page number and * it by 5 then - 5
+    var offset = (currentPage * 5) - 5;
     pages = 0;
     //loop through adding a page by / snippet count by 5
     for(var i = 0; i < (data.rows.length / 5) ; i++){
@@ -31,6 +34,7 @@ $(document).ready(function(){
 
     function getSnippets(scope){
       $.get("/api/snippets/" + scope, function(data) {
+          
           dataOutput = data;
           pageNumber(dataOutput);   
       });
@@ -44,12 +48,13 @@ $(document).ready(function(){
     var contDiv = $("#pagiContainer");
     contDiv.html("");
     var link;
+    
     //check to see if there is more than one page of results.
     //if there isn't we don't need to do anything
-    if(pageCount !== 1){
+    if(pageCount > 1){
 
       //if you are on first page you don't need a previous link
-      if(currentPage !== 1){
+      if(currentPage > 1){
         //create link
         //create div
         var prevPagi = $("<div>")
@@ -158,10 +163,11 @@ $(document).ready(function(){
       } else {
           info.push(data);
       }
+
     for(var i = 0; i < info.length; i++){
      
       //create output for snippets
-      var output =   "<div class='col-xs-12 box' id='box-" + i + "'>\n";
+      var output =   "<div class='col-xs-12 box' id='box" + i + "'>\n";
       output +=      "  <div class='col-sm-4'>\n";
       output +=      "    <div class='col-sm-12 col-xs-12 topInfo'>\n";
       output +=      "      <h4 class='card-title'>"+info[i].title+"</h4>\n";
@@ -192,6 +198,9 @@ $(document).ready(function(){
           snip1.setTheme("ace/theme/dawn");
           snip1.getSession().setMode("ace/mode/" + info[i].language);
 
+          $("#box" + i).fadeIn("slow");
+
+
           createButtons(i);         
     }
     $(".clickSearch").on("click", function(){
@@ -199,10 +208,6 @@ $(document).ready(function(){
       search(searchThis);
     });
   }
-
-  //----------------------------------------------------
-  
-
 
   //----------------------------------------------------
 
@@ -213,22 +218,14 @@ $(document).ready(function(){
         search(searchQuery);
     })
 
-  //---------------------------------------------------------
-
-    $(".snipImg").on("click", function(event){
-     
-        console.log("langue search value: " + this.val())
-        searchQuery = this.val();
-        search(searchQuery);
-    })
-
 //-------------------------------------------------------
 function search(searchQuery){
     var newData = {rows: []};
     if(searchQuery !== ""){
         console.log("searching...");
-
+        currentPage = 1;
         $.get("/api/snippets/" + scope, function(data) {
+
             searchQuery = searchQuery.toLowerCase();
             searchQuery = searchQuery.split(" ");
       
@@ -308,6 +305,8 @@ function search(searchQuery){
   }
 
 }
+
+//----------------------------------------------------------------------------
         
     function createButtons(id){
         var $div = $('<div>').addClass('toolBar btn-group');
@@ -364,12 +363,16 @@ function search(searchQuery){
     $('#snipUser').on('click', function(){
         scope = 'user';
         getSnippets('user');
+
+        $("#logoImg").attr("src", "/images/dash.png");
     });
 
     // Get global snippets
     $('#snipGlobal').on('click', function(){
         scope = 'global';
         getSnippets('global');
+
+        $("#logoImg").attr("src", "/images/global.png");
     });
 //----------------------------------------------------------------
 

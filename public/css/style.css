@@ -4,7 +4,7 @@
   }
 
 body{
-    margin: 20px 0;
+    margin-top: 145px;
   font-family: 'IM Fell English', serif;
 }
 
@@ -79,19 +79,21 @@ label.text-danger {
 }
 #signLink {
   background: -webkit-linear-gradient(top, #af30d8 , #db9ffb);
+  display: none;
 }
 
 #globalLink {
   background: -webkit-linear-gradient(top, #5484dc , #d4dbff);
+  display: none;
 }
 
 #dashLink {
-  display: ;
+  display: none;
   background: -webkit-linear-gradient(top, #3bb6ca , #5afff0);
 }
 
 #snipLink{
-  display: ;
+  display: none;
   background: -webkit-linear-gradient(top, #d48f54 , #fde399);
 }
 
@@ -104,7 +106,8 @@ label.text-danger {
 }
 
 #searchbar {
-    margin: 10px 0;
+padding: 0 20px 0 0;
+    
 }
 
 #snipArea {
@@ -139,13 +142,7 @@ label.text-danger {
 }
 
 .categoryOutput {
-    padding: 0;
-   /* position: absolute;
-    width: 130px;
-    bottom: -88px;
-    right: -10px;
-    z-index: 13;
-    float: right;*/
+  
 }
 
 #snipArea>h2 {
@@ -157,6 +154,7 @@ label.text-danger {
     position: relative;
     padding: 5px;
     vertical-align: middle;
+    display: none;
 }
 
 #editor {
@@ -179,9 +177,11 @@ label.text-danger {
 
 .pagi {
   border: solid #000 1px; 
+  border-top: solid #ccc 1px;
+  border-bottom: solid #ccc 2px;
   border-left: 0;
-  height: 18px; 
-  width: 18px; 
+  height: 30px;
+  width: 30px;
   float: left; 
   margin: 0px;
   transform: skewX(-20deg);
@@ -191,7 +191,6 @@ label.text-danger {
 
 .txtDiv {
   transform: skewX(20deg);
-  margin: -5px;
 }
 
 .current {
@@ -202,8 +201,8 @@ label.text-danger {
 .empty {
   border: solid #000 1px; 
   border-left: 0;
-  height: 18px; 
-  width: 18px; 
+  height: 30px; 
+  width: 30px; 
   float: left; 
   margin: 0px;
   transform: skewX(-20deg); 
@@ -223,4 +222,24 @@ label.text-danger {
 
 .clickSearch {
   cursor: pointer;
+}
+
+.navbar {
+  top: 20px;
+}
+
+#topbar {
+  position: fixed;
+  top: 0px;
+  left: 16px;
+  background-color: #fff;
+  z-index: 20;
+  height: 166px;
+  vertical-align: middle;
+  padding-top: 105px;
+  border-bottom: solid #ccc 1px;
+}
+
+footer {
+  background-color: #000;
 }
