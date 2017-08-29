@@ -8,6 +8,8 @@ $(document).ready(function(){
   var pages = 0;
 
   var scope = 'user';
+  var bookmark = false;
+
   getSnippets(scope);
   getBookmarks();
 
@@ -160,8 +162,10 @@ $(document).ready(function(){
       info = [];
       if(data.rows){
           info = data.rows;
+          bookmark = false;
       } else {
           info.push(data);
+          bookmark = true;
       }
       
     for(var i = 0; i < info.length; i++){
@@ -322,7 +326,7 @@ function search(searchQuery){
         $button.append($span).append(' Snip it');
         $div.append($button);
 
-        if(scope == 'user'){
+        if(scope == 'user' && bookmark == false){
             $button = $('<button>').addClass('btn btn-default btn-xs edit');
             $span = $('<i>').addClass('fa fa-pencil');
             $button.append($span).append(' Edit');
