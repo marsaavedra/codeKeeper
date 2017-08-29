@@ -493,26 +493,39 @@ function search(searchQuery){
         editor.getSession().setMode("ace/mode/" + $(this).val());
     });
 //----------------- Snippets --------------------------------------------
-  // Save button click event
   $('#save').on('click', function(){
-      console.log($('#privacy').val());
+      $('.text-danger').remove();
+      var title = $("#title").val().trim();
+      if(title.length < 8){
+          var $l = $('<label class="text-danger">').text('The title must be at least 6 characters long.');
+          $("#title").after($l);
+          return false;
+      }
+
+      var snipet = editor.getSession().getValue();
+      if(snipet.length < 21){
+          var $l = $('<label class="text-danger">').text('The snippet content must be at least 20 characters long.');
+          $('#editor').after($l);
+          return false;
+      }
+
       var data = {
-              title: $("#title").val().trim(),
+              title: title,
               description: $("#description").val().trim(),
               language: $("#category").val().trim(),
-              snippet: editor.getSession().getValue(),
+              snippet: snipet,
               privacy: $('#privacy').val()
           };
 
       $.post('/api/snippets', data, function(res){
           $("#title").val('');
           $("#description").val('');
-          $("#category").val('');
+          $("#category").val('text');
           editor.getSession().setValue('');
-          $('#privacy').val('');
+          $('#privacy').val('private');
           $('#modal').modal('toggle');
+          getSnippets(scope);
       }); 
   });
 //---------------------------------------------------------------------
 });
-
