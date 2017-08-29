@@ -570,5 +570,15 @@ function search(searchQuery){
           })
       }
   });
+  
+  function clearFields(){
+    $("#title").val('');
+    $("#description").val('');
+    $("#category").val('text');
+    editor.getSession().setValue('');
+    $('#privacy').val('private');
+    $('#modal').modal('toggle');
+    getSnippets(scope);
+  }
 //---------------------------------------------------------------------
 });
