@@ -22,7 +22,6 @@ module.exports = function(app) {
 
   // GET route for pagination of the snippets
   app.get("/api/snippets/pagination/:offset", function(req, res) {
-    console.log(req.params.offset)
     db.Snips.findAndCountAll({
       offset: parseInt(req.params.offset),
       limit: 5,
@@ -34,15 +33,27 @@ module.exports = function(app) {
   });
 
   // GET route for getting all of the snippets
-  app.get("/api/snippets", function(req, res) {
-    db.Snips.findAndCountAll({
-      where: {
-        privacy: "public"
-      },
-      include: [db.User]
-    }).then(function(result) {
-      res.json(result);
-    });
+  app.get("/api/snippets/:scope", function(req, res) {
+    if(req.params.scope == 'user') {
+        db.Snips.findAndCountAll({
+          where: {
+            UserId: req.user.id
+          },
+          include: [db.User]
+        }).then(function(result) {
+          res.json(result);
+        });
+
+    }else{
+        db.Snips.findAndCountAll({
+          where: {
+            privacy: "public"
+          },
+          include: [db.User]
+        }).then(function(result) {
+          res.json(result);
+        }); 
+    }
   });
 
   // Get route for retrieving all snippets of a specific language
@@ -58,7 +69,7 @@ module.exports = function(app) {
   });
 
   // Get route for retrieving a single snippet
-  app.get("/api/snippets/:id", function(req, res) {
+  app.get("/api/snippets/one/:id", function(req, res) {
     db.Snips.findOne({
       where: {
         id: req.params.id
