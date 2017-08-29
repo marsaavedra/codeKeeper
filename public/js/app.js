@@ -163,7 +163,7 @@ $(document).ready(function(){
       } else {
           info.push(data);
       }
-
+      
     for(var i = 0; i < info.length; i++){
      
       //create output for snippets
@@ -181,7 +181,7 @@ $(document).ready(function(){
       output +=      "        <h5 class='clickSearch'> "+info[i].User.name+"</h5>\n";       
       output +=      "      </div>\n";                 
       output +=      "    </div>\n";
-      output +=      "    <div class='col-sm-8 snipBox' id='snip"+ info[i].id +"'>\n</div>\n";
+      output +=      "    <div class='col-sm-8 snipBox' id='snip"+ i +"'>\n</div>\n";
       output +=      "</div>\n";
       output +=      "<div class='row'>\n";
       output +=      "  <div class='col-xs-12'>\n";
@@ -192,7 +192,7 @@ $(document).ready(function(){
           //place on page
           $("#snipArea").append(output);
 
-          var snip1 = ace.edit("snip" + info[i].id);
+          var snip1 = ace.edit("snip" + i);
           snip1.getSession().setValue(info[i].snippet);
           snip1.setReadOnly(true);
           snip1.setTheme("ace/theme/dawn");
@@ -201,7 +201,7 @@ $(document).ready(function(){
           $("#box" + i).fadeIn("slow");
 
 
-          createButtons(i);         
+          createButtons(i, info[i].id);         
     }
     $(".clickSearch").on("click", function(){
       var searchThis = $(this).text();
@@ -212,11 +212,16 @@ $(document).ready(function(){
   //----------------------------------------------------
 
     $("#searchButton").on("click", function(event){
-        event.preventDefault();
-
         searchQuery = $("#searchInput").val().trim();
         search(searchQuery);
-    })
+    });
+
+    $('#searchInput').on('keyup', function(event){
+        if(event.keyCode == 13) {
+            searchQuery = $(this).val().trim();
+            search(searchQuery);
+        }
+    });
 
 //-------------------------------------------------------
 function search(searchQuery){
@@ -308,9 +313,9 @@ function search(searchQuery){
 
 //----------------------------------------------------------------------------
         
-    function createButtons(id){
+    function createButtons(containerId, snipId){
         var $div = $('<div>').addClass('toolBar btn-group');
-        $div.attr('data-id', id);
+        $div.attr({'data-index': containerId, 'data-snipId': snipId});
         var $button = $('<button>').addClass('btn btn-default btn-xs bookmark');
 
         var $span = $('<i>').addClass('fa fa-bookmark-o ');
@@ -329,7 +334,7 @@ function search(searchQuery){
         $button.append($span).append(' Copy');
         $div.append($button);
 
-        $('#box-' + id).append($div);
+        $('#snip' + containerId).append($div);
     }
 //--------------------  Copy to clipboard  --------------------------------------------
     //Copy a value to the clipboard
@@ -345,7 +350,7 @@ function search(searchQuery){
     //Button copy click event
     //Get snippet text from the parent editor and call copyToClipboard function with that value
     $(document).on('click', '.copy', function(){
-        var id = $(this).parent().attr('data-id');
+        var id = $(this).parent().attr('data-index');
         copyToClipboard(info[id].snippet);
     });
 //----------------------------------------------------------------
@@ -380,11 +385,14 @@ function search(searchQuery){
 
   // Bookmark button click
   $(document).on("click", ".bookmark", function(){
-      var id = $(this).parent().attr('data-id');
-      $.get('/api/bookmarks/' + id, function(res){
+      var snipId = $(this).parent().attr('data-snipId');
+      var index = $(this).parent().attr('data-index');
+     
+      alert(index + ',  ' + snipId);
+      $.get('/api/bookmarks/' + snipId, function(res){
           if(!res) {
-            $('#bk-title').val(info[id].title);
-            $('#bk-id').val(info[id].id);
+            $('#bk-title').val(info[index].title);
+            $('#bk-id').val(info[index].id);
             $('#bookmark-modal').modal();
           } else {
             $('#alert').modal();
