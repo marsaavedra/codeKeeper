@@ -17,6 +17,7 @@ $(document).ready(function(){
 
   //--------------------------------------------------------------------------
   function pageNumber(data){
+
     pages = 0;
     //loop through adding a page by / snippet count by 5
     for(var i = 0; i < (data.rows.length / 5) ; i++){
@@ -147,7 +148,7 @@ $(document).ready(function(){
   };
 
 
-  //------------------------------------------------------------
+   //------------------------------------------------------------
   //
   function snipBuild(data){
       $("#snipArea").html("");
@@ -164,15 +165,14 @@ $(document).ready(function(){
       output +=      "  <div class='col-sm-4'>\n";
       output +=      "    <div class='col-sm-12 col-xs-12 topInfo'>\n";
       output +=      "      <h4 class='card-title'>"+info[i].title+"</h4>\n";
-      output +=      "      <h5 class='card-title language'>"+info[i].language+"</h5>\n";            
+      output +=      "      <h5 class='card-title clickSearch'>"+info[i].language+"</h5>\n";            
       output +=      "    </div>\n";           
       output +=      "    <div class='col-sm-12 col-xs-12'>\n";
       output +=      "      <img src='/images/"+info[i].language+".png' class='snipImg'>\n";
       output +=      "    </div>\n";
       output +=      "      <div class='subInfo'>\n";
       output +=      "        <h6 class='card-subtitle mb-2 text-muted'>"+info[i].description+"</h6>\n";
-      output +=      "        By:<a href='#' class='card-link'> "+info[i].User.name+"</a>\n";       
-      output +=      "        <a href='#' class='card-link'>Snips</a>\n";
+      output +=      "        <h5 class='clickSearch'> "+info[i].User.name+"</h5>\n";       
       output +=      "      </div>\n";                 
       output +=      "    </div>\n";
       output +=      "    <div class='col-sm-8 snipBox' id='snip"+ info[i].id +"'>\n</div>\n";
@@ -192,9 +192,17 @@ $(document).ready(function(){
           snip1.setTheme("ace/theme/dawn");
           snip1.getSession().setMode("ace/mode/" + info[i].language);
 
-          createButtons(i);
+          createButtons(i);         
     }
+    $(".clickSearch").on("click", function(){
+      var searchThis = $(this).text();
+      search(searchThis);
+    });
   }
+
+  //----------------------------------------------------
+  
+
 
   //----------------------------------------------------
 
@@ -293,8 +301,9 @@ function search(searchQuery){
           }
         }
       }
-      console.log(newData); 
-      pageNumber(newData);
+      console.log(newData);
+      dataOutput = newData; 
+      pageNumber(dataOutput);
     });
   }
 

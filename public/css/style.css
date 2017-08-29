@@ -220,3 +220,7 @@ label.text-danger {
   border: 0;
 
 }
+
+.clickSearch {
+  cursor: pointer;
+}
