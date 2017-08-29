@@ -204,7 +204,7 @@ $(document).ready(function(){
           createButtons(i, info[i].id);         
     }
     $(".clickSearch").on("click", function(){
-      var searchThis = $(this).text();
+      var searchThis = $(this).text().trim();
       search(searchThis);
     });
   }
@@ -474,6 +474,7 @@ function search(searchQuery){
       var snipId = $(this).attr('data-snipId');
 
       $.get("/api/snippets/one/" + snipId, function(data) {
+          $("#pagiContainer").html("");
           snipBuild(data); 
       });
   });
