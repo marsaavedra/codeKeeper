@@ -287,7 +287,8 @@ function search(searchQuery){
 
         $('#box-' + id).append($div);
     }
-
+//--------------------  Copy to clipboard  --------------------------------------------
+    //Copy a value to the clipboard
     function copyToClipboard(value) {
         var $temp = $("<textarea>");
         $("body").append($temp);
@@ -297,133 +298,158 @@ function search(searchQuery){
         $temp.remove();
     }
 
-    $('#snipUser').on('click', function(){
-        scope = 'user';
-        getSnippets('user');
-    });
-
-    $('#snipGlobal').on('click', function(){
-        scope = 'global';
-        getSnippets('global');
-    });
-
+    //Button copy click event
+    //Get snippet text from the parent editor and call copyToClipboard function with that value
     $(document).on('click', '.copy', function(){
         var id = $(this).parent().attr('data-id');
         copyToClipboard(info[id].snippet);
     });
+//----------------------------------------------------------------
 
-    $(document).on("click", ".bookmark", function(){
-        var id = $(this).parent().attr('data-id');
-        $('#bk-title').val(info[id].title);
-        $('#bk-id').val(info[id].id);
-        $('#bookmark-modal').modal();
-    });
+// ---------------  Navbar Buttons  ------------------------------
 
-    $('#save-bk').on('click', function(){
-        $("#bookmarkForm").submit();
-    });
-
-    function getBookmarks(){
-         $.get("/api/bookmarks", function(data) {
-            var ulBookmarks = $('#bookmarkList');
-            if(data){
-                for(var i = 0; i < data.length; i++){
-                     var $li = $('<li>');
-                     var $a = $('<a href="#">').text(data[i].title);
-                     $a.attr('data-snipId', data[i].SnipId).addClass('bookmark-link');
-                     $li.append($a);
-                     ulBookmarks.append($li);
-                }
-            }   
-        });
-    }
-
-    $(document).on('click', '.bookmark-link', function(){
-        var snipId = $(this).attr('data-snipId');
-
-        $.get("/api/snippets/one/" + snipId, function(data) {
-            console.log(data);
-            snipBuild(data); 
-        });
-    });
-
-    function submitBookmark(){
-        // Create an object with input fields values
-        var newBookmark = {
-            SnipId: $("#bk-id").val().trim(), 
-            title: $("#bk-title").val().trim()
-        };
-
-        // Post the user info to signup
-        $.post("/api/bookmarks", newBookmark, function(res){
-            // Check response for error or messages
-            if(res.error) throw error;
-
-            $('#bookmark-modal').modal( 'hide' ).data( 'bs.modal', null );
-
-            $('#tooltip').tooltip('show');
-             setTimeout( 
-                function(){ 
-                    $('#tooltip').tooltip('hide');;
-                }, 2000
-            );
-        });
-    }
-
-    $("#bookmarkForm").validate({
-        submitHandler: function(form) {
-            submitBookmark();
-        },
-        onkeyup: false,
-        errorClass: 'text-danger',
-        rules: {
-            "bk-title": {
-                required: true,
-                minlength: 10
-            }
-        },
-        messages: {
-            "bk-title": {
-                required: "Enter a title.",
-                minlength: "Title must be at least 10 characters long."
-            }
-        }
-    });
-
-    var editor = ace.edit("editor");
-    editor.setTheme("ace/theme/dawn");
-    editor.getSession().setMode("ace/mode/text");
-    //chrome, crimson_editor, dawn, github, 
-
+    // Creat new snippet
     $('#add-new').on("click", function(){
         $('#modal').modal({
             keyboard: false
         });
     });
 
+    // Get user snippets
+    $('#snipUser').on('click', function(){
+        scope = 'user';
+        getSnippets('user');
+    });
+
+    // Get global snippets
+    $('#snipGlobal').on('click', function(){
+        scope = 'global';
+        getSnippets('global');
+    });
+//----------------------------------------------------------------
+
+//--------------- Create Bookmarks  ------------------------------
+
+  // Bookmark button click
+  $(document).on("click", ".bookmark", function(){
+      var id = $(this).parent().attr('data-id');
+      $('#bk-title').val(info[id].title);
+      $('#bk-id').val(info[id].id);
+      $('#bookmark-modal').modal();
+  });
+
+  // Save bookmark button click
+  $('#save-bk').on('click', function(){
+      $("#bookmarkForm").submit();
+  });
+
+  // Bookmark form validation
+  $("#bookmarkForm").validate({
+      submitHandler: function(form) {
+          submitBookmark();
+      },
+      onkeyup: false,
+      errorClass: 'text-danger',
+      rules: {
+          "bk-title": {
+              required: true,
+              minlength: 10
+          }
+      },
+      messages: {
+          "bk-title": {
+              required: "Enter a title.",
+              minlength: "Title must be at least 10 characters long."
+          }
+      }
+  });
+
+  // Save bookmark to database
+  function submitBookmark(){
+      // Create an object with input fields values
+      var newBookmark = {
+          SnipId: $("#bk-id").val().trim(), 
+          title: $("#bk-title").val().trim()
+      };
+
+      // Post the user info to signup
+      $.post("/api/bookmarks", newBookmark, function(res){
+          // Check response for error or messages
+          if(res.error) throw error;
+
+          $('#bookmark-modal').modal( 'hide' ).data( 'bs.modal', null );
+
+          $('#tooltip').tooltip('show');
+           setTimeout( 
+              function(){ 
+                  $('#tooltip').tooltip('hide');;
+              }, 2000
+          );
+      });
+  }
+//----------------------------------------------------------------
+
+//-------------  Get bookmarks  ----------------------------------
+  // Get bookmarks from database
+  function getBookmarks(){
+       $.get("/api/bookmarks", function(data) {
+          var ulBookmarks = $('#bookmarkList');
+          if(data){
+              for(var i = 0; i < data.length; i++){
+                   var $li = $('<li>');
+                   var $a = $('<a href="#">').text(data[i].title);
+                   $a.attr('data-snipId', data[i].SnipId).addClass('bookmark-link');
+                   $li.append($a);
+                   ulBookmarks.append($li);
+              }
+          }   
+      });
+  }
+
+  // Bookmark link click
+  $(document).on('click', '.bookmark-link', function(){
+      var snipId = $(this).attr('data-snipId');
+
+      $.get("/api/snippets/one/" + snipId, function(data) {
+          snipBuild(data); 
+      });
+  });
+//------------------------------------------------------------------------
+    
+
+    
+
+    var editor = ace.edit("editor");
+    editor.setTheme("ace/theme/dawn");
+    editor.getSession().setMode("ace/mode/text");
+    //chrome, crimson_editor, dawn, github, 
+
+    
+
     $('#category').on('change', function(){
         editor.getSession().setMode("ace/mode/" + $(this).val());
     });
+//----------------- Snippets --------------------------------------------
+  // Save button click event
+  $('#save').on('click', function(){
+      console.log($('#privacy').val());
+      var data = {
+              title: $("#title").val().trim(),
+              description: $("#description").val().trim(),
+              language: $("#category").val().trim(),
+              snippet: editor.getSession().getValue(),
+              privacy: $('#privacy').val()
+          };
 
-    $('#save').on('click', function(){
-        console.log($('#privacy').val());
-        var data = {
-                title: $("#title").val().trim(),
-                description: $("#description").val().trim(),
-                language: $("#category").val().trim(),
-                snippet: editor.getSession().getValue(),
-                privacy: $('#privacy').val()
-            };
-
-        $.post('/api/snippets', data, function(res){
-            $("#title").val('');
-            $("#description").val('');
-            $("#category").val('');
-            editor.getSession().setValue('');
-            $('#privacy').val('');
-            $('#modal').modal('toggle');
-        }); 
-    });
-
+      $.post('/api/snippets', data, function(res){
+          $("#title").val('');
+          $("#description").val('');
+          $("#category").val('');
+          editor.getSession().setValue('');
+          $('#privacy').val('');
+          $('#modal').modal('toggle');
+      }); 
+  });
+//---------------------------------------------------------------------
 });
 

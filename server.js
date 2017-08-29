@@ -2,6 +2,7 @@ var express = require("express");
 var passport = require("passport");
 var session = require("express-session");
 var bodyParser = require("body-parser");
+var path = require("path");
 var db = require("./models");
 
 var app = express();
@@ -23,10 +24,15 @@ app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 
 //Routes
-require("./routes/html-routes.js")(app);
 require("./routes/user-api-routes.js")(app, passport);
 require("./routes/snips-api-routes.js")(app);
 require("./routes/bookmarks-api-routes.js")(app);
+require("./routes/html-routes.js")(app);
+
+ 	// Handle 404
+app.use(function(req, res) {
+    res.sendFile(path.join(__dirname, "./public/404.html"));
+});
 
 //load passport strategies
 require("./config/passport/passport.js")(passport, db.User);
