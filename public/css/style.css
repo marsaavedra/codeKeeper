@@ -106,7 +106,8 @@ label.text-danger {
 }
 
 #searchbar {
-padding: 0 20px 0 0;
+  padding: 0 20px 0 5px;
+  margin-bottom: 15px;
     
 }
 
@@ -233,7 +234,7 @@ padding: 0 20px 0 0;
   left: 16px;
   background-color: #fff;
   z-index: 20;
-  height: 166px;
+  min-height: 166px;
   vertical-align: middle;
   padding-top: 105px;
   border-bottom: solid #ccc 1px;

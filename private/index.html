@@ -69,7 +69,7 @@
         
         <main class="container">
             <div class="row" id="topbar">
-                <div class="col-xs-2">
+                <div class="col-xs-6 col-sm-2">
                     <div class="dropdown">
                         <button class="btn btn-default dropdown-toggle" type="button" id="bookmarks" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Bookmarks
                             <span class="caret" data-toggle="tooltip" title="Boolmark saved" id="tooltip" data-placement="right"></span>
@@ -85,12 +85,11 @@
                     </div>
                 </div>
 
-                <div class="col-xs-4 ">
-                    <div id="locactionTxt">
-                    </div>
+                <div class="col-xs-6 col-sm-4">
+                    <h4 id="locationTxt">My Snippets</h4>
                 </div>
                 
-                <div class="col-xs-6" id="searchbar">
+                <div class="col-xs-12 col-sm-6" id="searchbar">
                     <div class="input-group">
                         <input type="text" class="form-control" id="searchInput" placeholder="Search for...">
                         <span class="input-group-btn">
@@ -99,6 +98,7 @@
                     </div>        
                 </div>
             </div>
+            
             <div class="row">
                 <div class="col-lg-12">
                     <hr>
@@ -125,7 +125,7 @@
                         <form id="snippetForm">
                             <div class="form-group">
                                 <input type="text" id="title" name="title" class="form-control" placeholder="Title" autofocus >
-                                <input type="hidden" name="snippet" id="snippetInput">
+                                <input type="hidden" name="snippet-id" id="snippet-id">
                             </div>
 
                             <div class="form-group">
