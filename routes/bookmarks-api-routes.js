@@ -20,7 +20,7 @@ module.exports = function(app, passport){
   app.get("/api/bookmarks/:id", function(req, res, next){
     db.Bookmarks.findOne({
           where: {
-            id: req.params.id,
+            SnipId: req.params.id,
             UserId: req.user.id
           }
       }).then(function(result) {
