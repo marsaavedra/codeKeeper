@@ -49,6 +49,9 @@ module.exports = function(app) {
           where: {
             privacy: "public"
           },
+          order: [
+            ['id', 'desc']
+            ],
           include: [db.User]
         }).then(function(result) {
           res.json(result);
