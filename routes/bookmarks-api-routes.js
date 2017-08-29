@@ -4,7 +4,7 @@
 var db = require("../models");
 
 module.exports = function(app, passport){
-	// Post route for sign in
+	// get route bookmarks
 	app.get("/api/bookmarks", function(req, res, next){
 		db.Bookmarks.findAll({
       		where: {
@@ -16,9 +16,20 @@ module.exports = function(app, passport){
     	});
 	});
 
-		
+	// get route bookmarks
+  app.get("/api/bookmarks/:id", function(req, res, next){
+    db.Bookmarks.findOne({
+          where: {
+            id: req.params.id,
+            UserId: req.user.id
+          }
+      }).then(function(result) {
+          res.json(result);
+      });
+  });
 
-	// Post route for sign up
+
+	// Post route bookmarks
 	app.post("/api/bookmarks", function(req, res, next){
 		db.Bookmarks.create({
       		title: req.body.title,

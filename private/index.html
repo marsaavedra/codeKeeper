@@ -13,13 +13,6 @@
         <script src="https://use.fontawesome.com/dd264c6b99.js"></script>
 
         <style type="text/css">
-            #div1, #div2 {
-                background-color: #ccc;
-                width: 500px;
-                height: 200px;
-                margin-bottom: 20px;
-                position: relative;
-            }
 
             .toolBar {
                 top: 5px;
@@ -179,8 +172,8 @@
                     </div>
                     <!-- footer -->
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                        <button type="button" class="btn btn-primary" id="save">Save</button>
+                        <button type="button" class="btn btn-default btn-xs" data-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-primary btn-sm" id="save">Save</button>
                     </div>
                 </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->
@@ -210,6 +203,22 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
                         <button type="button" class="btn btn-primary" id="save-bk">Save</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+
+        <div class="modal fade" tabindex="-1" role="dialog" id="alert">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Alert</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p class="alert alert-danger">This snippet has been bookmarked already.</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Ok</button>
                     </div>
                 </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->
