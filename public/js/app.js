@@ -333,9 +333,16 @@ function search(searchQuery){
   // Bookmark button click
   $(document).on("click", ".bookmark", function(){
       var id = $(this).parent().attr('data-id');
-      $('#bk-title').val(info[id].title);
-      $('#bk-id').val(info[id].id);
-      $('#bookmark-modal').modal();
+      $.get('/api/bookmarks/' + id, function(res){
+          if(!res) {
+            $('#bk-title').val(info[id].title);
+            $('#bk-id').val(info[id].id);
+            $('#bookmark-modal').modal();
+          } else {
+            $('#alert').modal();
+          }
+      });
+      
   });
 
   // Save bookmark button click
