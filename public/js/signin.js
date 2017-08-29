@@ -25,7 +25,7 @@ $(document).ready(function(){
 				$("#signInEmail").focus();
 			} else {
 				// If login successfully redirect to dash page
-				window.location.href = "/dash";
+				window.location.href = "/";
 			}
 		});
 	}

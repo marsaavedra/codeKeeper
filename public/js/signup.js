@@ -24,7 +24,7 @@ $(document).ready(function(){
 				$("#email").focus();
 			} else {
 				// If singup successfully redirect to dash page
-				window.location.href = "/dash";
+				window.location.href = "/";
 			}
 		});
 	}
