@@ -525,7 +525,7 @@ function search(searchQuery){
       $('.text-danger').remove();
       var title = $("#title").val().trim();
       if(title.length < 8){
-          var $l = $('<label class="text-danger">').text('The title must be at least 6 characters long.');
+          var $l = $('<label class="text-danger">').text('The title must be at least 8 characters long.');
           $("#title").after($l);
           return false;
       }
